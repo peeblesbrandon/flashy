@@ -1,14 +1,32 @@
 {
   "name": "flashy",
+  "author": "Brandon Peebles",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "helmet": "^3.1.0",
+    "mongodb": "^2.2.16",
+    "mongoose": "^5.9.29",
+    "node": "^14.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "zombie": "^5.0.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "14.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
