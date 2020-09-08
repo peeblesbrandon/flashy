@@ -28,14 +28,14 @@ router.post('/register', (req, res) => {
             const newUser = new User({
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password
+                hash: req.body.password
             });
 
             // hash password
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
-                    newUser.password = hash;
+                    newUser.hash = hash;
                     newUser
                         .save()
                         .then(user => res.json(user))
@@ -62,39 +62,39 @@ router.post('/login', (req, res) => {
     // lookup user
     User.findOne({ email }).then(user => {
         if (!user) {
-            return res.status(404).json({emailnotfound: 'Email not found'});
+            return res.status(404).json({ emailnotfound: 'Email invalid or unregistered' });
         }
-    });
 
-    // compare passwords
-    bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-            // passwords matched
-            // create JWT payload
-            const payload = {
-                id: user.id,
-                username: user.username
-            };
-            
-            // sign token
-            jwt.sign(
-                payload,
-                process.env.secretOrKey,
-                {
-                    expiresIn: 31556926 // 1 year in seconds
-                },
-                (err, token) => {
-                    res.json({
-                        success: true,
-                        token: 'Bearer ' + token 
-                    });
-                }
-            );
-        } else {
-            return res
-                .status(400)
-                .json({ passwordIncorrect: 'Password incorrect'});
-        }
+        // compare passwords
+        bcrypt.compare(password, user.hash).then(isMatch => {
+            if (isMatch) {
+                // passwords matched
+                // create JWT payload
+                const payload = {
+                    id: user._id,
+                    username: user.username
+                };
+
+                // sign token
+                jwt.sign(
+                    payload,
+                    process.env.secretOrKey,
+                    {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: 'Bearer ' + token
+                        });
+                    }
+                );
+            } else {
+                return res
+                    .status(400)
+                    .json({ passwordIncorrect: 'Password incorrect' });
+            }
+        });
     });
 });
 
