@@ -1,19 +1,23 @@
 "use strict";
 
-const MongoClient = require("mongodb");
-const mongoose = require("mongoose");
-// require mongo data models here
+const router = require('express').Router();
+let User = require('../models/user.model');
 
-mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-});
-const db = mongoose.connection;
+router.route('/')
+    .get((req, res) => {
+        User.find()
+            .then(users => res.json(users))
+            .catch(err => res.status(400).json('error: ' + err))
+    });
 
-module.exports = function(app) {
-    app.route("/some/route/here")
-        .get((req, res, next) => {
-            return res.status(200);
-        })
-}
+router.route('/register')
+    .post((req, res) => {
+        const username = req.body.username;
+        const newUser = new User({ username });
+
+        newUser.save()
+            .then(() => res.json('User registered!'))
+            .catch(err => res.status(400).json('error: ' + err));
+    });
+
+module.exports = router;
