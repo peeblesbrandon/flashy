@@ -9,9 +9,11 @@ require('dotenv').config();
 const app = express();
 
 // cors and express
-app.use(cors());
-// app.use(express.json())
-app.use(express.urlencoded({ extended: true })); // parse url-encoded bodies
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false })); // parse url-encoded bodies
 
 // database config
 mongoose.connect(process.env.DATABASE, {

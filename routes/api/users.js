@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // const keys = require('../../config/keys');
 
+// proxy routing
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
+
 // load data input validation functions
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
@@ -33,7 +37,7 @@ router.post('/register', (req, res) => {
 
             // hash password
             bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                bcrypt.hash(newUser.hash, salt, (err, hash) => {
                     if (err) throw err;
                     newUser.hash = hash;
                     newUser
@@ -64,7 +68,6 @@ router.post('/login', (req, res) => {
         if (!user) {
             return res.status(404).json({ emailnotfound: 'Email invalid or unregistered' });
         }
-
         // compare passwords
         bcrypt.compare(password, user.hash).then(isMatch => {
             if (isMatch) {
