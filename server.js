@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set app to listen on port
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 // process.env.port is Heroku's port if deploying there
 app.listen(port, () => {
     console.log(`✅ Server is running on port: ${port}`);
