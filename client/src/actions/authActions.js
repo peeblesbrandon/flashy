@@ -10,13 +10,11 @@ import {
 export const registerUser = (userData, history) => dispatch => {
     axios
         .post("/api/users/register", userData)
-        // .then(res => history.push("/login")) 
+        // .then(res => history.push("/login")) if we want to have them manually login after registering
         .then((res) => {
-            console.log(res.config);
             let req = JSON.parse(res.config.data);
             dispatch(loginUser({ email: req.email, password: req.password}));
         }) // re-direct to login on successful register
-        // .then(res => history.push('/dashboard'))
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
