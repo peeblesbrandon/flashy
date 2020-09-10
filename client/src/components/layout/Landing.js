@@ -1,7 +1,20 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 
 class Landing extends Component {
+    constructor() {
+        super();
+    }
+
+    componentDidMount() {
+        // if logged in user tries to navigate to landing page, redirect
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
     render() {
         return (
             <div style={{ height: "75vh" }} className="cotnainer valign-wrapper">
@@ -39,4 +52,19 @@ class Landing extends Component {
     }
 }
 
-export default Landing;
+Landing.propTypes = {
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    {}
+)(withRouter(Landing));
+
+// export default Landing;

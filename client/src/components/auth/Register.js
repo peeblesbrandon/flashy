@@ -6,8 +6,8 @@ import { registerUser } from '../../actions/authActions';
 import classnames from 'classnames';
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             username: '',
             email: '',
