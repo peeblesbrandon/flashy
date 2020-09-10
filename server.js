@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const users = require('./routes/api/users');
 const path = require('path');
-// const apiRouter = require('./routes/api');
+const users = require('./routes/api/users');
+const decks = require('./routes/api/decks');
+// const cards = require('./routes/api/cards');
 require('dotenv').config();
 
 const app = express();
@@ -31,9 +32,10 @@ db.once('open', () => {
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-// routes
+// Use routes
 app.use('/api/users', users);
-// app.use('/app', apiRouter);
+app.use('/api/decks', decks);
+// app.use('/api/cards', cards);
 
 // serve static assets when in production
 if (process.env.NODE_ENV === 'production') {
