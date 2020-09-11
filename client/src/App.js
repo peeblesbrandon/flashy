@@ -43,7 +43,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            {/* <Navbar />    <---- commented out so we can exclude navbar from landing page*/}
+            {/* public routes  */}
             <Route exact path="/" component={Landing} />
             <Route exact path="/register">
               <Navbar />
@@ -53,8 +53,13 @@ class App extends Component {
               <Navbar />
               <Login />
             </Route>
+
+            {/* private routes */}
             <Switch>
-              <PrivateRoute exact path='/dashboard' component= { Dashboard } />
+              <PrivateRoute exact path='/dashboard' component={ Dashboard } />
+                {/* <Navbar />
+                <Dashboard />
+              </PrivateRoute> */}
             </Switch>
           </div>
         </Router>

@@ -35,7 +35,6 @@ require('./config/passport')(passport);
 // Use routes
 app.use('/api/users', users);
 app.use('/api/decks', decks);
-// app.use('/api/cards', cards);
 
 // serve static assets when in production
 if (process.env.NODE_ENV === 'production') {

@@ -1,25 +1,21 @@
 import {
-    SET_CURRENT_USER,
-    USER_LOADING
-} from "../actions/types";
-const isEmpty = require("is-empty");
+    GET_DECK_BY_ID,
+    DECK_LOADING
+} from '../actions/types';
 
 const initialState = {
-    isAuthenticated: false,
-    user: {},
+    data: [],
     loading: false
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case SET_CURRENT_USER:
+        case GET_DECK_BY_ID:
             return {
                 ...state,
-                isAuthenticated: !isEmpty(action.payload),
-                user: action.payload,
-                loading: false
+                data: action.payload
             };
-        case USER_LOADING:
+        case DECK_LOADING:
             return {
                 ...state,
                 loading: true
@@ -28,4 +24,3 @@ export default function (state = initialState, action) {
             return state;
     }
 }
-

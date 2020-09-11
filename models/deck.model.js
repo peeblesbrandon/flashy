@@ -7,7 +7,11 @@ const deckSchema = new Schema({
     title: { type: String, required: true }, 
     description: { type: String, required: false },
     authorId: { type: ObjectId, required: true },
-    cards: [],
+    cards: [{
+        prompt: { type: String, required: false, default: '' },
+        answer: { type: String, required: false, default: '' },
+        isLearned: { type: Boolean, required: false, default: false }
+    }],
     private: { type: Boolean, required: true }
 }, { timestamps: true });
 

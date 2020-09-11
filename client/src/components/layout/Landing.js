@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 class Landing extends Component {
-    constructor() {
-        super();
-    }
-
     componentDidMount() {
         // if logged in user tries to navigate to landing page, redirect
         if (this.props.auth.isAuthenticated) {
