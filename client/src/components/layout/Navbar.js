@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { logoutUser } from '../../actions/authActions';
 import './Navbar.css';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 class Navbar extends Component {
     constructor(props) {
@@ -11,11 +12,8 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        const M = window.M;
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems, {});
-        });
+        let sidenav = document.querySelector('#slide-out');
+        M.Sidenav.init(sidenav, {});
     }
 
     onLogoutClick = e => {
@@ -44,27 +42,33 @@ class Navbar extends Component {
         }
         return (
             <div>
-                <div className="navbar-fixed">
-                    <nav>
-                    {/* <nav className="z-depth-0"> */}
-                        <div className="nav-wrapper white">
-                            <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
-                                <i className="material-icons">whatshot</i> flashy
+                <nav className="navbar-fixed">
+                {/* <nav className="z-depth-0"> */}
+                    <div className="nav-wrapper white">
+                        <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
+                            <i className="material-icons">whatshot</i> flashy
                         </Link>
-                            {/* {LogoutButton} */}
-                            <a href="#" data-target="nav-buttons" className="sidenav-trigger"><i className="material-icons" style={{ color: "black" }}>menu</i></a>
-                            <ul className="right hide-on-med-and-down">
-                                <li>{LogoutButton}</li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-                <ul id="nav-buttons" className="sidenav">
+                        {/* {LogoutButton} */}
+                        <a href="#" data-target="slide-out" className="sidenav-trigger sidenav-open"><i className="material-icons sidenav-open" style={{ color: "black" }}>menu</i></a>
+                        <ul className="right hide-on-med-and-down">
+                            <li>{LogoutButton}</li>
+                        </ul>
+                    </div>
+                </nav>
+                <ul id="slide-out" className="sidenav">
                     <li>{LogoutButton}</li>
                 </ul>
             </div>
         );
     }
+}
+
+const addMenuListener = () => {
+    const M = window.M;
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, {});
+    });
 }
 
 Navbar.propTypes = {
