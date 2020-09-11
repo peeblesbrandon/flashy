@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
 
 // proxy routing
 router.use(express.json());
@@ -74,14 +73,14 @@ router.post('/login', (req, res) => {
                 // passwords matched
                 // create JWT payload
                 const payload = {
-                    id: user._id,
+                    _id: user._id,
                     username: user.username
                 };
 
                 // sign token
                 jwt.sign(
                     payload,
-                    keys.secretOrKey,
+                    process.env.secretOrKey,
                     {
                         expiresIn: 31556926 // 1 year in seconds
                     },

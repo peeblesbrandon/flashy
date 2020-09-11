@@ -6,9 +6,12 @@ const Schema = mongoose.Schema;
 const deckSchema = new Schema({
     title: { type: String, required: true }, 
     description: { type: String, required: false },
-    author: { type: String, required: true },
     authorId: { type: ObjectId, required: true },
-    cards: [],
+    cards: [{
+        prompt: { type: String, required: false, default: '' },
+        answer: { type: String, required: false, default: '' },
+        isLearned: { type: Boolean, required: false, default: false }
+    }],
     private: { type: Boolean, required: true }
 }, { timestamps: true });
 

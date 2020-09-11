@@ -16,7 +16,6 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
-import Deck from './components/Deck.js';
 
 // check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -28,7 +27,6 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(token);
   // set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
-
   // check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
@@ -45,7 +43,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            {/* <Navbar />    <---- commented out so we can exclude navbar from landing page*/}
+            {/* public routes  */}
             <Route exact path="/" component={Landing} />
             <Route exact path="/register">
               <Navbar />
@@ -55,8 +53,13 @@ class App extends Component {
               <Navbar />
               <Login />
             </Route>
+
+            {/* private routes */}
             <Switch>
-              <PrivateRoute exact path='/dashboard' component= { Dashboard } />
+              <PrivateRoute exact path='/dashboard' component={ Dashboard } />
+                {/* <Navbar />
+                <Dashboard />
+              </PrivateRoute> */}
             </Switch>
           </div>
         </Router>
