@@ -21,6 +21,7 @@ class Navbar extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
+        this.props.history.push('/login');
     };
 
     render() {
@@ -36,26 +37,28 @@ class Navbar extends Component {
                         margin: "1rem 1rem 0 0"
                     }}
                     onClick={this.onLogoutClick}
-                    className="btn waves-effect right waves-light hoverable red accent-4">
+                    className="btn waves-effect right waves-light hoverable red accent-4 sidenav-close">
                     Logout
                 </button>
             );
         }
         return (
             <div>
-                <nav className="navbar-fixed z-depth-0">
-                    <div className="nav-wrapper white">
-                        <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
-                            <i className="material-icons">whatshot</i> flashy
+                <div className="navbar-fixed">
+                    <nav>
+                    {/* <nav className="z-depth-0"> */}
+                        <div className="nav-wrapper white">
+                            <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
+                                <i className="material-icons">whatshot</i> flashy
                         </Link>
-                        {/* {LogoutButton} */}
-                        <a href="#" data-target="nav-buttons" className="sidenav-trigger"><i className="material-icons" style={{ color: "black" }}>menu</i></a>
-                        <ul className="right hide-on-med-and-down">
-                            <li>{LogoutButton}</li>
-                        </ul>
-                    </div>
-                </nav>
-
+                            {/* {LogoutButton} */}
+                            <a href="#" data-target="nav-buttons" className="sidenav-trigger"><i className="material-icons" style={{ color: "black" }}>menu</i></a>
+                            <ul className="right hide-on-med-and-down">
+                                <li>{LogoutButton}</li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
                 <ul id="nav-buttons" className="sidenav">
                     <li>{LogoutButton}</li>
                 </ul>
