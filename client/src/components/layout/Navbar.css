@@ -20,6 +20,10 @@
     letter-spacing: 1.5px;
 }
 
+.no-padding-override {
+    padding: 0px !important;
+}
+
 .sidenav li a {
     font-size: 18px;
 }

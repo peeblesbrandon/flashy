@@ -56,12 +56,12 @@ class Navbar extends Component {
                             {/* {LogoutButton} */}
                             {auth.isAuthenticated &&
                                 <div>
-                                    <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons md-36" style={{ color: "black" }}>menu</i></a>
+                                    <a href="#/" data-target="slide-out" className="sidenav-trigger"><i className="material-icons md-36" style={{ color: "black" }}>menu</i></a>
                                     <ul className="right hide-on-med-and-down">
-                                        <li><a href="#" className="black-text">Decks</a></li>
-                                        <li><a href="#" className="black-text">Explore</a></li>
-                                        <li><a href="#" className="black-text">Account</a></li>
-                                        <li><a href="#" className="black-text" onClick={this.onLogoutClick}>Logout</a></li>
+                                        <li><a href="#/" className="black-text">Decks</a></li>
+                                        <li><a href="#/" className="black-text">Explore</a></li>
+                                        <li><a href="#/" className="black-text">Account</a></li>
+                                        <li><a href="#/" className="black-text" onClick={this.onLogoutClick}>Logout</a></li>
                                     </ul>
                                 </div>
                             }
@@ -70,18 +70,18 @@ class Navbar extends Component {
                 </div>
                 <div>
                     {auth.isAuthenticated &&
-                        <ul id="slide-out" className="sidenav" >
+                        <ul id="slide-out" className="sidenav collection with-header" style={{border: "0pc"}} >
                             {/* <li><b className="flow-text right" style={{display: "block"}}>{auth.user.username}</b></li> */}
-                            <li style={{ paddingLeft: "1rem" }}>
+                            <li className="collection-header red darken-4" style={{ paddingLeft: "1rem", paddingBottom: "1rem"}}>
                                 <h4>
-                                    <span class="material-icons md-36 vertical-align-middle red-text text-darken-4">account_circle</span>
-                                    <b style={{ padding: "0 0 1rem 1rem" }} className="vertical-align-middle padding-bottom-3 red-text text-darken-4">{auth.user.username}</b>
+                                    <span class="material-icons md-36 vertical-align-middle white-text">account_circle</span>
+                                    <b style={{ padding: "0 0 1rem 1rem" }} className="vertical-align-middle padding-bottom-3 white-text">{auth.user.username}</b>
                                 </h4>
                             </li>
-                            <li><a href="#" className="sidenav-close" onClick={this.onDecksClick}>Decks</a></li>
-                            <li><a href="#">Explore</a></li>
-                            <li><a href="#">Account</a></li>
-                            <li><a href="#" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close" style={{}} onClick={this.onDecksClick}>Decks</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close">Explore</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close">Account</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>
                             {/* <li>{LogoutButton}</li> */}
                         </ul>
                     }
