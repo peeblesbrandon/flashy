@@ -22,17 +22,12 @@ class Dashboard extends Component {
         return (
             <div>
                 <Navbar />
-                <div style={{ height: "100vh" }} className="container valign-wrapper">
-                    <div className="row">
-                        <div className="col s12 center-align">
-                            <h4>
-                                <b>Hey there,</b> {auth.user.username}
-                                <p className="flow-text grey-text text-darken-1">
-                                    You are logged into <span style={{ fontFamily: "monospace" }}>flashy</span> 👏
-                                </p>
-                            </h4>
+                <div style={{ height: "100vh" }} className="container">
+                    <div className="row" style={{ height: "100vh" }}>
+                        <div className="col s12 l11 offset-l1 left-align">
+                            <h4><b className="red-text text-darken-4">My Decks</b></h4>
                         </div>
-                        <div className="col s12 center-align" style={{ marginTop: "1rem" }}>
+                        <div className="col s12 m12 l11 offset-l1 center-align">
                             {decks.loading &&
                                 <p>Loading...</p>
                             }

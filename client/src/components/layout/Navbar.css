@@ -2,3 +2,24 @@
     /* z-index: 996;  */
     height: 100vh;
 }
+
+.vertical-align-middle { 
+    vertical-align: middle; 
+}
+
+.padding-bottom-3 {
+    padding-bottom: 3px;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.sidenav {
+    letter-spacing: 1.5px;
+}
+
+.sidenav li a {
+    font-size: 18px;
+}

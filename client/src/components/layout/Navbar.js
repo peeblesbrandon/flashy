@@ -42,33 +42,42 @@ class Navbar extends Component {
         }
         return (
             <div>
-                <nav className="navbar-fixed">
-                {/* <nav className="z-depth-0"> */}
-                    <div className="nav-wrapper white">
-                        <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
-                            <i className="material-icons">whatshot</i> flashy
+                <div className="navbar-fixed">
+                    <nav>
+                        {/* <nav className="z-depth-0"> */}
+                        <div className="nav-wrapper white">
+                            <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
+                                <i className="material-icons" style={{ color: "black" }}>whatshot</i> flashy
                         </Link>
-                        {/* {LogoutButton} */}
-                        <a href="#" data-target="slide-out" className="sidenav-trigger sidenav-open"><i className="material-icons sidenav-open" style={{ color: "black" }}>menu</i></a>
-                        <ul className="right hide-on-med-and-down">
-                            <li>{LogoutButton}</li>
-                        </ul>
-                    </div>
-                </nav>
-                <ul id="slide-out" className="sidenav">
-                    <li>{LogoutButton}</li>
-                </ul>
+                            {/* {LogoutButton} */}
+                            <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons md-36" style={{ color: "black" }}>menu</i></a>
+                            <ul className="right hide-on-med-and-down">
+                                <li><a href="#" className="black-text">Decks</a></li>
+                                <li><a href="#" className="black-text">Explore</a></li>
+                                <li><a href="#" className="black-text">Account</a></li>
+                                <li><a href="#" className="black-text">Logout</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div>
+                    <ul id="slide-out" className="sidenav" >
+                        {/* <li><b className="flow-text right" style={{display: "block"}}>{auth.user.username}</b></li> */}
+                        <li style={{ paddingLeft: "1rem" }}>
+                            <h4>
+                                <span class="material-icons md-36 vertical-align-middle red-text text-darken-4">account_circle</span>
+                                <b style={{ padding: "0 0 1rem 1rem" }} className="vertical-align-middle padding-bottom-3 red-text text-darken-4">{auth.user.username}</b>
+                            </h4>
+                        </li>
+                        <li><a href="#" className="flow-text">Decks</a></li>
+                        <li><a href="#">Explore</a></li>
+                        <li><a href="#">Account</a></li>
+                        {/* <li>{LogoutButton}</li> */}
+                    </ul>
+                </div>
             </div>
         );
     }
-}
-
-const addMenuListener = () => {
-    const M = window.M;
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, {});
-    });
 }
 
 Navbar.propTypes = {
