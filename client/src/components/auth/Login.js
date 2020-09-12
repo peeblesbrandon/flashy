@@ -3,8 +3,11 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
 import classnames from 'classnames';
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
+import store from '../../store'; // remove later
+import { CLEAR_ERRORS } from '../../actions/types'; // remove later and replace with custom dispatch func
 
 class Login extends Component {
     constructor() {
@@ -17,17 +20,23 @@ class Login extends Component {
     }
 
     componentDidMount() {
+        // add an action call to clear errors
         // if logged in user tries to navigate to login page, redirect
         if (this.props.auth.isAuthenticated) {
             this.props.history.push('/dashboard');
-        }
+        } 
+        store.dispatch({ type: CLEAR_ERRORS }) // remove later and replace with custom dispatch func
+        
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
+        if (nextProps.auth.isAuthenticated ) {
             this.props.history.push('/dashboard'); // redirect user to dash after login
-        }
-        if (nextProps.errors) {
+            this.setState({
+                errors: {}
+            });
+        } else if (nextProps.errors) {
+            console.log(nextProps);
             this.setState({
                 errors: nextProps.errors
             });
@@ -49,7 +58,7 @@ class Login extends Component {
     
     render() {
         const { errors } = this.state;
-        if (this.props.auth.loading) { // takeover screen with loading icon while logging in
+        if (this.props.auth.isAuthenticated && this.props.auth.loading) { // takeover screen with loading icon while logging in
             return (
                 <LoadingSpinFullScreen /> 
             );
@@ -129,7 +138,8 @@ class Login extends Component {
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -139,5 +149,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { loginUser } 
+    { loginUser, clearErrors } 
 )(withRouter(Login));
