@@ -16,6 +16,11 @@ class Navbar extends Component {
         M.Sidenav.init(sidenav, {});
     }
 
+    onDecksClick = e => {
+        e.preventDefault();
+        this.props.history.push('/dashboard');
+    };
+    
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
@@ -24,7 +29,6 @@ class Navbar extends Component {
 
     render() {
         const { auth } = this.props;
-        let LogoutButton;
         if (auth.isAuthenticated) {
             // LogoutButton = (
             //     <button
@@ -46,8 +50,8 @@ class Navbar extends Component {
                     <nav>
                         {/* <nav className="z-depth-0"> */}
                         <div className="nav-wrapper white">
-                            <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center black-text">
-                                <i className="material-icons" style={{ color: "black" }}>whatshot</i> flashy
+                            <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center-align black-text">
+                                <i className="material-icons md-36" style={{ color: "black", marginLeft: "1rem" }}>whatshot</i>
                         </Link>
                             {/* {LogoutButton} */}
                             {auth.isAuthenticated &&
@@ -74,7 +78,7 @@ class Navbar extends Component {
                                     <b style={{ padding: "0 0 1rem 1rem" }} className="vertical-align-middle padding-bottom-3 red-text text-darken-4">{auth.user.username}</b>
                                 </h4>
                             </li>
-                            <li><a href="#" className="flow-text">Decks</a></li>
+                            <li><a href="#" className="sidenav-close" onClick={this.onDecksClick}>Decks</a></li>
                             <li><a href="#">Explore</a></li>
                             <li><a href="#">Account</a></li>
                             <li><a href="#" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>

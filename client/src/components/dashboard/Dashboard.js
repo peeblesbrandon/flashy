@@ -25,7 +25,7 @@ class Dashboard extends Component {
                 <div style={{ height: "100vh" }} className="container">
                     <div className="row" style={{ height: "100vh" }}>
                         <div className="col s12 l11 offset-l1 left-align">
-                            <h4><b className="red-text text-darken-4">My Decks</b></h4>
+                            <h4><b className="red-text text-darken-4" style={{marginLeft: "1rem"}}>My Decks</b></h4>
                         </div>
                         <div className="col s12 m12 l11 offset-l1 center-align">
                             {decks.loading &&
