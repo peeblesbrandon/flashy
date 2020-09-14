@@ -6,7 +6,6 @@ import Navbar from '../layout/Navbar';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 // components
-import Deck from '../deck/Deck';
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
 
 class DeckViewer extends Component {
@@ -15,7 +14,6 @@ class DeckViewer extends Component {
     }
 
     componentDidMount() {
-        this.props.getDeckById();
         let fab = document.querySelector(".fixed-action-btn");
         M.FloatingActionButton.init(fab, {});
     };
@@ -25,6 +23,7 @@ class DeckViewer extends Component {
         return (
             <div>
                 <Navbar />
+                <pre>{JSON.stringify(this.props.selectedDeck.data, undefined, 2)}</pre>
                 {/* {decks.loading &&
                     <LoadingSpinFullScreen />
                 }
@@ -59,12 +58,12 @@ class DeckViewer extends Component {
 
 DeckViewer.propTypes = {
     auth: PropTypes.object.isRequired,
-    deck: PropTypes.object.isRequired
+    selectedDeck: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    deck: state.decks
+    selectedDeck: state.selectedDeck
 });
 
 export default connect(
