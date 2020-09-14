@@ -10,6 +10,7 @@ router.use(express.urlencoded({ extended: false }));
 
 // load mongoose models
 const Deck = require('../../models/deck.model');
+const e = require('express');
 
 // @route GET api/decks/
 // @desc return array of decks associated with user based on auth header
@@ -23,8 +24,8 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
                 return res.status(204).json({ data: decks })
             }
         })
-        .catch(err => { 
-            return res.status(500).json({ errors: 'error querying database'}); 
+        .catch(err => {
+            return res.status(500).json({ errors: 'error querying database' });
         });
 });
 
@@ -63,7 +64,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
 // @desc delete deck by id 
 // @access private
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Deck.findOneAndDelete({ authorId: req.user._id, _id: req.params.id })
+    Deck.deleteOne({ authorId: req.user._id, _id: req.params.id })
         .then(deck => {
             if (!deck) {
                 return res.status(404).json({ success: false, errors: { deck: 'not found' } });
@@ -81,19 +82,23 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 // @note does not allow individual card updates, only array replacement - use api/decks/:id/cards/:id instead
 // @access private
 router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const filter = { authorId: req.user._id, _id: req.params.id };
-    const update = {};
-    if (req.body.title) { update.title = req.body.title };
-    if (req.body.description) { update.description = req.body.description };
-    if (req.body.cards) { update.cards = req.body.cards };
-    if (req.body.private) { update.private = req.body.private };s
-    
-    Deck.findOneAndUpdate()
+    Deck.findOne({ authorId: req.user._id, _id: req.params.id })
         .then(deck => {
             if (!deck) {
                 return res.status(404).json({ success: false, errors: { deck: 'not found' } });
             } else {
-                return res.status(200).json({ success: true, updatedDeck: deck });
+                if (req.body.title) { deck.title = req.body.title };
+                if (req.body.description) { deck.description = req.body.description };
+                if (req.body.cards) { deck.cards = req.body.cards };
+                if (req.body.private) { deck.private = req.body.private };
+                deck.save()
+                    .then(deck => {
+                        return res.status(200).json({ success: true, updatedDeck: deck });
+                    })
+                    .catch(err => {
+                        return res.status(500).json({ success: false, errors: { saveFailed: 'Server failed to save updates', msg: err } });
+                    });
+
             }
         })
         .catch(err => {
@@ -101,6 +106,46 @@ router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res
         });
 });
 
+// @route POST api/decks/:id/cards
+// @desc push new card(s) to a deck's cards array
+// @expects array of card objects { prompt, answer, isLearned }
+// @access private
+router.post('/:id/cards', passport.authenticate('jwt', { session: false }), (req, res) => {
+    if (!req.body.cards) {
+        return res.status(400).json({ success: false, errors: { msg: 'cards field cannot be empty' } });
+    } else if (!(req.body.cards instanceof Array)) {
+        return res.status(400).json({ success: false, errors: { msg: 'expected array of cards' } });
+    }
+    Deck.updateOne({ authorId: req.user._id, _id: req.params.id },
+                    { $push: { cards: { $each: req.body.cards } } },
+                    (err, result) => {
+                        if (err) {
+                            return res.status(400).json({ success: false, errors: { msg: err } });
+                        } 
+                        return res.status(200).json({ success: true, result: result });
+                    }); 
+});
+
+// @route PATCH api/decks/:id/cards/:cardId
+// @desc modify card by its id
+// @expects all fields for card object
+// @access private
+router.patch('/:id/cards/:cardId', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Deck.updateOne({ authorId: req.user._id, _id: req.params.id, 'cards._id': req.params.cardId }, 
+        {$set:
+            {
+                'cards.$.prompt': req.body.prompt,
+                'cards.$.answer': req.body.answer,
+                'cards.$.isLearned': req.body.isLearned
+            }
+        }, 
+        (err, result) => {
+        if (err) {
+            return res.status(500).json({ success: false, errors: { msg: err } });
+        }
+        return res.status(200).json({ success: true, result: result });
+    });
+});
 
 
 module.exports = router;

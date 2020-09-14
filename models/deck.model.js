@@ -12,7 +12,9 @@ const deckSchema = new Schema({
         answer: { type: String, required: false, default: '' },
         isLearned: { type: Boolean, required: false, default: false }
     }],
-    private: { type: Boolean, required: true }
+    private: { type: Boolean, required: true },
+    viewCount: { type: Number, required: false, default: 0 }, // num of clicks into deck
+    saveCount: { type: Number, required: false, default: 0 }  // num of other users that have saved/duplicated this deck to their own library
 }, { timestamps: true });
 
 const Deck = mongoose.model('Deck', deckSchema);
