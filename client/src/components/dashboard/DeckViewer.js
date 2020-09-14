@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDeckById } from '../../actions/selectedDeckActions';
@@ -33,12 +34,15 @@ class DeckViewer extends Component {
                 {!selectedDeck.loading &&
                     <div style={{ height: "100vh" }} className="container">
                         <div className="row">
-                            <div className="col s12 left-align">
-                                <h4><b className="red-text text-darken-3" style={{ marginLeft: "1rem" }}>{selectedDeck.data.title}</b></h4>
+                            <button onClick={this.props.history.goBack} className="btn-flat waves-effect">
+                                <i className="material-icons left">keyboard_backspace</i> Back
+                            </button>
+                            <div className="col s12">
+                                <h4 style={{marginTop: "0"}}><b className="left-align red-text text-darken-3">{selectedDeck.data.title}</b></h4>
+                                <br />
+                                <div>Note: this JSON output is a placeholder</div>
+                                <pre className="left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
                             </div>
-                            <br/>
-                            <div>Note: this JSON output is a placeholder</div>
-                            <pre className="left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
                         </div>
                         {/* <!-- Tap Target Structure --> */}
                         {/* <div class="tap-target" data-target="deckEditFAB">
@@ -77,4 +81,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {}
-)(DeckViewer);
+)(withRouter(DeckViewer));
