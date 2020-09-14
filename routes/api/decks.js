@@ -147,5 +147,18 @@ router.patch('/:id/cards/:cardId', passport.authenticate('jwt', { session: false
     });
 });
 
+// @route DELETE api/decks/:id/cards/:cardId
+// @desc delete card by its id
+// @access private
+router.delete('/:id/cards/:cardId', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Deck.updateOne({ authorId: req.user._id, _id: req.params.id },
+        { $pull: { cards: { _id: req.params.cardId } } },
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({ success: false, errors: { msg: err } });
+            }
+            return res.status(200).json({ success: true, result: result });
+        });
+});
 
 module.exports = router;
