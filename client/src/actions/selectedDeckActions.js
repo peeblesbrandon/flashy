@@ -6,9 +6,9 @@ import {
 } from './types';
 
 export const getDeckById = (id) => dispatch => {
-    dispatch(setDecksLoading());
+    dispatch(setDeckLoading());
     axios
-        .get('api/decks/', { query: { id: id } })
+        .get(`api/decks/${id}`)
         .then(res => {
             dispatch({
                 type: GET_DECK_BY_ID,
@@ -22,10 +22,10 @@ export const getDeckById = (id) => dispatch => {
             })
         });
 
-}
+};
 
 export const setDeckLoading = () => {
     return {
-        type: DECKS_LOADING
+        type: DECK_LOADING
     };
 };

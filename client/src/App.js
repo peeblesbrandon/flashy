@@ -17,6 +17,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
+import DeckViewer from './components/dashboard/DeckViewer';
 
 // check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -58,9 +59,7 @@ class App extends Component {
             {/* private routes */}
             <Switch>
               <PrivateRoute exact path='/dashboard' component={ Dashboard } />
-                {/* <Navbar />
-                <Dashboard />
-              </PrivateRoute> */}
+              <PrivateRoute exact path='/view' component={ DeckViewer } />
             </Switch>
           </div>
         </Router>

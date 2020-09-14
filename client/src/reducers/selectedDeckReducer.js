@@ -4,7 +4,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    data: [],
+    data: {},
     loading: false
 };
 
@@ -13,7 +13,8 @@ export default function (state = initialState, action) {
         case GET_DECK_BY_ID:
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,
+                loading: false
             };
         case DECK_LOADING:
             return {
