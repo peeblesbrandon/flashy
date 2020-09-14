@@ -33,21 +33,12 @@ class DeckViewer extends Component {
                 {!selectedDeck.loading &&
                     <div style={{ height: "100vh" }} className="container">
                         <div className="row">
-                            <div className="colleft-align">
+                            <div className="col s12 left-align">
                                 <h4><b className="red-text text-darken-3" style={{ marginLeft: "1rem" }}>{selectedDeck.data.title}</b></h4>
                             </div>
-                            <p>Note: this JSON output is a placeholder</p>
+                            <br/>
+                            <div>Note: this JSON output is a placeholder</div>
                             <pre className="left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
-                        </div>
-                        <div className="fixed-action-btn" id="deckEditFAB">
-                            <a className="btn-floating btn-large red darken-3">
-                                <i className="large material-icons">expand_less</i>
-                            </a>
-                            <ul>
-                                <li><a className="btn-floating red lighten-1"><i className="material-icons">mode_edit</i></a></li>
-                                <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li>
-                                <li><a className="btn-floating green darken-2"><i className="material-icons">play_arrow</i></a></li>
-                            </ul>
                         </div>
                         {/* <!-- Tap Target Structure --> */}
                         {/* <div class="tap-target" data-target="deckEditFAB">
@@ -58,6 +49,16 @@ class DeckViewer extends Component {
                             </div> */}
                     </div>
                 }
+                <div className="fixed-action-btn" id="deckEditFAB">
+                    <a className="btn-floating btn-large red darken-3">
+                        <i className="large material-icons">expand_less</i>
+                    </a>
+                    <ul>
+                        <li><a className="btn-floating red lighten-1"><i className="material-icons">mode_edit</i></a></li>
+                        <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li>
+                        <li><a className="btn-floating green darken-2"><i className="material-icons">play_arrow</i></a></li>
+                    </ul>
+                </div>
             </div>
         );
     }
