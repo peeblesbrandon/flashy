@@ -26,29 +26,31 @@ class Dashboard extends Component {
                     <LoadingSpinFullScreen />
                 }
                 {!decks.loading && 
-                    <div style={{ height: "100vh" }} className="container">
-                        <div className="row" style={{ height: "100vh" }}>
-                            <div className="col s12 left-align">
-                                <h4><b className="red-text text-darken-3" style={{marginLeft: "1rem"}}>My Decks</b></h4>
+                    <div>
+                        <div style={{ height: "100vh" }} className="container">
+                            <div className="row" style={{ height: "100vh" }}>
+                                <div className="col s12 left-align">
+                                    <h4><b className="red-text text-darken-3" style={{marginLeft: "1rem"}}>My Decks</b></h4>
+                                </div>
+                                <div className="col s12 center-align">
+                                    {decks.data.length <= 0 &&
+                                        <p>No decks</p>
+                                    }
+                                    {decks.data.length > 0 &&
+                                        decks.data.map((deck) =>
+                                            <Deck key={deck._id} id={deck._id} title={deck.title} />
+                                        )
+                                    }
+                                </div>
                             </div>
-                            <div className="col s12 center-align">
-                                {decks.data.length <= 0 &&
-                                    <p>No decks</p>
-                                }
-                                {decks.data.length > 0 &&
-                                    decks.data.map((deck) =>
-                                        <Deck key={deck._id} id={deck._id} title={deck.title} />
-                                    )
-                                }
-                            </div>
+                        </div>
+                        <div className="fixed-action-btn">
+                            <a className="btn-floating btn-large red darken-3">
+                                <i className="large material-icons">add</i>
+                            </a>
                         </div>
                     </div>
                 }
-                <div className="fixed-action-btn">
-                    <a className="btn-floating btn-large red darken-3">
-                        <i className="large material-icons">add</i>
-                    </a>
-                </div>
             </div>
         );
     }
