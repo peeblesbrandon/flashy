@@ -21,7 +21,6 @@ export const getDeckById = (id) => dispatch => {
                 payload: err.response
             })
         });
-
 };
 
 export const setDeckLoading = () => {

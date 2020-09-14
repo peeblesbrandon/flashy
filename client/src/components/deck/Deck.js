@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDeckById } from '../../actions/selectedDeckActions';
@@ -8,7 +8,7 @@ class Deck extends React.Component {
     onDeckClick = () => {
         this.props.getDeckById(this.props.id);
         this.props.history.push('/view');
-    } 
+    }  
     
     onStartClick = e => {
         this.props.getDeckById(this.props.id);
