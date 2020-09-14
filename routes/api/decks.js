@@ -82,15 +82,17 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 // @note does not allow individual card updates, only array replacement - use api/decks/:id/cards/:id instead
 // @access private
 router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.body);
+    console.log(typeof req.body.private)
     Deck.findOne({ authorId: req.user._id, _id: req.params.id })
         .then(deck => {
             if (!deck) {
                 return res.status(404).json({ success: false, errors: { deck: 'not found' } });
             } else {
-                if (req.body.title) { deck.title = req.body.title };
-                if (req.body.description) { deck.description = req.body.description };
-                if (req.body.cards) { deck.cards = req.body.cards };
-                if (req.body.private) { deck.private = req.body.private };
+                if (req.body.hasOwnProperty('title')) { deck.title = req.body.title };
+                if (req.body.hasOwnProperty('description')) { deck.description = req.body.description };
+                if (req.body.hasOwnProperty('cards')) { deck.cards = req.body.cards };
+                if (req.body.hasOwnProperty('private')) { deck.private = req.body.private };
                 deck.save()
                     .then(deck => {
                         return res.status(200).json({ success: true, updatedDeck: deck });

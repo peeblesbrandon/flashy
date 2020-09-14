@@ -6,3 +6,12 @@
   max-height: 75vh;
   line-height: 1.25em;
 }
+
+.vertical-align-middle { 
+    vertical-align: 'middle'; 
+    display: 'inline-flex' 
+}
+
+.padding-bottom-3 {
+    padding-bottom: 3px;
+}

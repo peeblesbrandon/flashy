@@ -45,7 +45,7 @@ class Dashboard extends Component {
                             </div>
                         </div>
                         <div className="fixed-action-btn">
-                            <a className="btn-floating btn-large red darken-3">
+                            <a className="btn-floating btn-large red darken-3 z-depth-3">
                                 <i className="large material-icons">add</i>
                             </a>
                         </div>

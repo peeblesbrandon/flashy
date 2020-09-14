@@ -34,15 +34,22 @@ class DeckViewer extends Component {
                 {!selectedDeck.loading &&
                     <div style={{ height: "100vh" }} className="container">
                         <div className="row">
-                            <button onClick={this.props.history.goBack} className="btn-flat waves-effect">
-                                <i className="material-icons left">keyboard_backspace</i> Back
+                            <button onClick={this.props.history.goBack} className="col s4 btn-flat waves-effect">
+                                <i className="material-icons left left-align">keyboard_backspace</i> Back
                             </button>
-                            <div className="col s12">
-                                <h4 style={{marginTop: "0"}}><b className="left-align red-text text-darken-3">{selectedDeck.data.title}</b></h4>
-                                <br />
-                                <div>Note: this JSON output is a placeholder</div>
-                                <pre className="left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
-                            </div>
+                            <h4 className="col s12">
+                                <b className="left left-align red-text text-darken-3 truncate">{selectedDeck.data.title}</b>
+                                {selectedDeck.data.private &&
+                                    <i className="right small material-icons grey-text vertical-align-middle" style={{ padding: "5px" }}>lock</i>
+                                }
+                                {!selectedDeck.data.private &&
+                                    <i className="right small material-icons grey-text vertical-align-middle" style={{ padding: "5px" }}>lock_open</i>
+                                }
+                            </h4>
+                            <p className="col s12 grey-text">{selectedDeck.data.description}</p>
+                            <br />
+                            <em className="col s12">Note: JSON output below is a placeholder</em>
+                            <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
                         </div>
                         {/* <!-- Tap Target Structure --> */}
                         {/* <div class="tap-target" data-target="deckEditFAB">
@@ -54,7 +61,7 @@ class DeckViewer extends Component {
                     </div>
                 }
                 <div className="fixed-action-btn" id="deckEditFAB">
-                    <a className="btn-floating btn-large red darken-3">
+                    <a className="btn-floating btn-large red darken-3 z-depth-3">
                         <i className="large material-icons">expand_less</i>
                     </a>
                     <ul>
