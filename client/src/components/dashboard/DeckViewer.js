@@ -13,21 +13,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Grid, Card, CardContent, CardActions, Typography } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import './DeckViewer.css';
 
 // components
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
 import Navbar from '../layout/Navbar';
+// import Flashcard from '../deck/Flashcard';
 
 class DeckViewer extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
+        console.log(`Constructing with id: ${this.props.computedMatch.params.id}`);
         this.state = {
+            id: this.props.selectedDeck.data._id,
             title: this.props.selectedDeck.data.title,
             description: this.props.selectedDeck.data.description,
             private: this.props.selectedDeck.data.private,
+            cards: this.props.selectedDeck.data.cards,
             editMode: false
         }
         this.toggleEditMode = this.toggleEditMode.bind(this);
@@ -48,18 +52,21 @@ class DeckViewer extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            title: nextProps.selectedDeck.data.title,
-            description: nextProps.selectedDeck.data.description,
-            private: nextProps.selectedDeck.data.private
-        });
+        if (JSON.stringify(nextProps.selectedDeck) !== JSON.stringify(this.props.selectedDeck)) {
+            console.log('rerender');
+            this.setState({
+                id: this.props.selectedDeck.data._id,
+                title: nextProps.selectedDeck.data.title,
+                description: nextProps.selectedDeck.data.description,
+                private: nextProps.selectedDeck.data.private,
+                cards: nextProps.selectedDeck.data.cards
+            });
+        }
     };
 
     onSaveClick = e => {
         // add error checking here
         e.preventDefault();
-        console.log('saved');
-        console.log(this.state);
         const deckPatch = {
             title: this.state.title,
             description: this.state.description,
@@ -75,6 +82,13 @@ class DeckViewer extends Component {
             // M.textareaAutoResize($('#description'));
         }
     };
+
+    handleCardChange(i, e) {
+        const { name, value } = e.target;
+        let cards = [...this.state.cards];
+        cards[i] = { ...cards[i], [name]: value };
+        this.setState({ cards });
+    }
 
     onDeleteClick = () => {
 
@@ -102,14 +116,15 @@ class DeckViewer extends Component {
 
     render() {
         const { auth, selectedDeck } = this.props;
+        console.log(selectedDeck);
         console.log(this.state);
         return (
             <div>
                 <Navbar />
-                {selectedDeck.loading &&
+                {selectedDeck.loading === true &&
                     <LoadingSpinFullScreen />
                 }
-                {!selectedDeck.loading &&
+                {selectedDeck.loading === false &&
                     <div style={{ height: "100vh" }} className="container">
                         {!this.state.editMode &&
                             <div>
@@ -128,16 +143,35 @@ class DeckViewer extends Component {
                                     </div>
                                     <p className="col s12 grey-text">{selectedDeck.data.description}</p>
                                     <br />
-                                    <em className="col s12">Note: JSON output below is a placeholder</em>
-                                    <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
+                                    {/* <em className="col s12">Note: JSON output below is a placeholder</em>
+                                    <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
+                                    <div className="col s12 center-align">
+                                        {selectedDeck.data.cards.length <= 0 &&
+                                            <p>No decks</p>
+                                        }
+                                        {selectedDeck.data.cards.length > 0 &&
+                                            selectedDeck.data.cards.map((card, i) => 
+                                                <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
+                                                    <CardContent>
+                                                        <Typography className="" color="textSecondary" gutterBottom>
+                                                            {card.prompt}
+                                                        </Typography>
+                                                        <Typography variant="body2" component="p">
+                                                            {card.answer}
+                                                        </Typography>
+                                                    </CardContent>
+                                                </Card>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                                 <div className="fixed-action-btn" id="deckEditFAB">
                                     <a className="btn-floating btn-large red darken-3 z-depth-3">
                                         <i className="large material-icons">expand_less</i>
                                     </a>
                                     <ul>
-                                        <li><a className="btn-floating red lighten-1"><i className="material-icons" onClick={this.toggleEditMode}>mode_edit</i></a></li>
-                                        <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li>
+                                        <li><a className="btn-floating yellow darken-3"><i className="material-icons" onClick={this.toggleEditMode}>mode_edit</i></a></li>
+                                        {/* <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li> */}
                                         <li><a className="btn-floating green darken-2"><i className="material-icons">play_arrow</i></a></li>
                                     </ul>
                                 </div>
@@ -186,34 +220,46 @@ class DeckViewer extends Component {
                                             s={12}
                                             onChange={this.onChange}
                                         />
-                                        <em className="col s12">Note: JSON output below is a placeholder</em>
-                                        <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
+                                        {/* <em className="col s12">Note: JSON output below is a placeholder</em>
+                                        <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
+                                        <div className="col s12 center-align">
+                                            {selectedDeck.data.cards.length <= 0 &&
+                                                <p>No decks</p>
+                                            }
+                                            {selectedDeck.data.cards.length > 0 &&
+                                                selectedDeck.data.cards.map((card, i) =>
+                                                    <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
+                                                            <CardContent>
+                                                                <TextField
+                                                                    name="prompt"
+                                                                    label="Prompt"
+                                                                    // placeholder="Placeholder"
+                                                                    value={this.state.cards[i].prompt}
+                                                                    className="col s12"
+                                                                    style={{ marginBottom: "1rem" }}
+                                                                    multiline
+                                                                    // rowsMax={6}
+                                                                    s={12}
+                                                                    onChange={this.handleCardChange.bind(this, i)}
+                                                                />
+                                                                <TextField
+                                                                    name="answer"
+                                                                    label="Answer"
+                                                                    // placeholder="Placeholder"
+                                                                    value={this.state.cards[i].answer}
+                                                                    className="col s12"
+                                                                    style={{ marginBottom: "1rem" }}
+                                                                    multiline
+                                                                    // rowsMax={6}
+                                                                    s={12}
+                                                                    onChange={this.handleCardChange.bind(this, i)}
+                                                                />
+                                                            </CardContent>
+                                                    </Card>
+                                                )
+                                            }
+                                        </div>
                                     </div>
-                                    {/* <div>
-                                        <a href="#/" class="waves-effect waves-light red btn-large"><i class="material-icons left" onClick={this.onDeleteClick}>delete</i>Delete deck</a>
-                                        <Dialog
-                                            open={open}
-                                            keepMounted
-                                            onClose={this.onDeleteClose}
-                                            aria-labelledby="alert-dialog-slide-title"
-                                            aria-describedby="alert-dialog-slide-description"
-                                        >
-                                            <DialogTitle id="alert-dialog-slide-title">{"Delete this deck?"}</DialogTitle>
-                                            <DialogContent>
-                                                <DialogContentText id="alert-dialog-slide-description">
-                                                    You are about to delete this deck. This action cannot be undone. Do you still wish to continue?
-                                                </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={this.onDeleteClose} color="info">
-                                                    Cancel
-                                                </Button>
-                                        <       Button onClick={this.onDeleteClose} color="danger">
-                                                    Delete
-                                                </Button>
-                                            </DialogActions>
-                                        </Dialog>
-                                    </div> */}
                                     <div className="fixed-action-btn" id="saveFAB">
                                         <a className="btn-floating btn-large blue z-depth-3" onClick={this.onSaveClick}>
                                             <i className="large material-icons">save</i>

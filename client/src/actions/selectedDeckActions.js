@@ -3,7 +3,8 @@ import {
     GET_ERRORS,
     GET_DECK_BY_ID,
     DECK_LOADING,
-    SET_SELECTED_DECK
+    SET_SELECTED_DECK,
+    GET_SELECTED_DECK
 } from './types';
 
 export const getDeckById = (id) => dispatch => {

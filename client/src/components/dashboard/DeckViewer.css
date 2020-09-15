@@ -1,15 +1,16 @@
 .maxLines {
-  display: block;/* or inline-block */
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 75vh;
-  line-height: 1.25em;
+    display: block;
+    /* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 75vh;
+    line-height: 1.25em;
 }
 
-.vertical-align-middle { 
-    vertical-align: 'middle'; 
-    display: 'inline-flex' 
+.vertical-align-middle {
+    vertical-align: 'middle';
+    display: 'inline-flex'
 }
 
 .padding-bottom-3 {
@@ -18,4 +19,14 @@
 
 .no-padding-override {
     padding: 0px !important;
+}
+
+.mui_card {
+    min-width: 275;
+    background: "#eee";
+    margin: "1rem";
+}
+
+.mui_title {
+    font-size: 14;
 }
