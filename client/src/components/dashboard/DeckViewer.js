@@ -3,15 +3,22 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDeckById, patchDeckById } from '../../actions/selectedDeckActions';
-import Navbar from '../layout/Navbar';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 import './DeckViewer.css';
 
 // components
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
+import Navbar from '../layout/Navbar';
 
 class DeckViewer extends Component {
     constructor(props) {
@@ -69,6 +76,14 @@ class DeckViewer extends Component {
         }
     };
 
+    onDeleteClick = () => {
+
+    }
+
+    onDeleteClose = () => {
+
+    }
+
     toggleEditMode = () => {
         if (this.state.editMode) {
             this.setState({ editMode: false });
@@ -102,15 +117,15 @@ class DeckViewer extends Component {
                                     <button onClick={this.props.history.goBack} className="col s12 left left-align btn-flat waves-effect">
                                         <i className="material-icons left left-align">keyboard_backspace</i>Back
                                     </button>
-                                    <h4 className="col s12">
-                                        <b className="left left-align red-text text-darken-3 truncate">{selectedDeck.data.title}</b>
+                                    <div>
+                                        <h5 className="col s11"><b className="left left-align red-text text-darken-3 truncate">{selectedDeck.data.title}</b></h5>
                                         {selectedDeck.data.private &&
-                                            <i className="right small material-icons grey-text vertical-align-middle" style={{ padding: "5px" }}>lock</i>
+                                            <i className="right-align small material-icons grey-text vertical-align-middle col s1" style={{ padding: "5px" }}>lock</i>
                                         }
                                         {!selectedDeck.data.private &&
-                                            <i className="right small material-icons grey-text vertical-align-middle" style={{ padding: "5px" }}>lock_open</i>
+                                            <i className="right-align small material-icons grey-text vertical-align-middle col s1" style={{ padding: "5px" }}>lock_open</i>
                                         }
-                                    </h4>
+                                    </div>
                                     <p className="col s12 grey-text">{selectedDeck.data.description}</p>
                                     <br />
                                     <em className="col s12">Note: JSON output below is a placeholder</em>
@@ -136,26 +151,25 @@ class DeckViewer extends Component {
                                             <i className="material-icons left left-align">clear</i>Cancel
                                         </button>
                                     </div>
-                                    <div className="valign-wrapper left left-align row" style={{ marginTop: "1rem" }}>
+                                    <div className="valign-wrapper row" style={{ marginTop: "1rem" }}>
                                         <TextField
                                             id="title"
                                             label="Title"
-                                            className="col s6 left left-align"
+                                            className="col s7 left left-align"
                                             value={this.state.title}
                                             onChange={this.onChange}
                                             InputProps={{ disableUnderline: true }}
                                         />
-                                        <div className="switch col s6 right right-align">
+                                        <div className="switch col s5 right right-align">
                                             <label>
-                                                Public
-                                            <input
+                                                {this.state.private ? 'Private' : 'Public'}
+                                                <input
                                                     id="private"
                                                     type="checkbox"
                                                     checked={this.state.private}
                                                     onChange={this.togglePrivacy}
                                                 />
                                                 <span className="lever"></span>
-                                                Private
                                             </label>
                                         </div>
                                     </div>
@@ -175,6 +189,31 @@ class DeckViewer extends Component {
                                         <em className="col s12">Note: JSON output below is a placeholder</em>
                                         <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
                                     </div>
+                                    {/* <div>
+                                        <a href="#/" class="waves-effect waves-light red btn-large"><i class="material-icons left" onClick={this.onDeleteClick}>delete</i>Delete deck</a>
+                                        <Dialog
+                                            open={open}
+                                            keepMounted
+                                            onClose={this.onDeleteClose}
+                                            aria-labelledby="alert-dialog-slide-title"
+                                            aria-describedby="alert-dialog-slide-description"
+                                        >
+                                            <DialogTitle id="alert-dialog-slide-title">{"Delete this deck?"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-slide-description">
+                                                    You are about to delete this deck. This action cannot be undone. Do you still wish to continue?
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={this.onDeleteClose} color="info">
+                                                    Cancel
+                                                </Button>
+                                        <       Button onClick={this.onDeleteClose} color="danger">
+                                                    Delete
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                    </div> */}
                                     <div className="fixed-action-btn" id="saveFAB">
                                         <a className="btn-floating btn-large blue z-depth-3" onClick={this.onSaveClick}>
                                             <i className="large material-icons">save</i>
