@@ -10,3 +10,4 @@ export const DECKS_LOADING = 'DECKS_LOADING';
 // selectedDeck
 export const GET_DECK_BY_ID = 'GET_DECK_BY_ID';
 export const DECK_LOADING = 'DECK_LOADING';
+export const SET_SELECTED_DECK = 'SET_SELECTED_DECK';

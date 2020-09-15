@@ -59,7 +59,7 @@ class App extends Component {
             {/* private routes */}
             <Switch>
               <PrivateRoute exact path='/dashboard' component={ Dashboard } />
-              <PrivateRoute exact path='/view' component={ DeckViewer } />
+              <PrivateRoute exact path='/view/:id' component={ DeckViewer } />
             </Switch>
           </div>
         </Router>

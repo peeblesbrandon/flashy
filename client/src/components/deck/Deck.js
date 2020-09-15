@@ -6,8 +6,7 @@ import { getDeckById } from '../../actions/selectedDeckActions';
 
 class Deck extends React.Component {
     onDeckClick = () => {
-        this.props.getDeckById(this.props.id);
-        this.props.history.push('/view');
+        this.props.history.push(`/view/${this.props.id}`);
     }  
     
     onStartClick = e => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDeckById } from '../../actions/selectedDeckActions';
+import { getDeckById, patchDeckById } from '../../actions/selectedDeckActions';
 import Navbar from '../layout/Navbar';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import TextField from '@material-ui/core/TextField';
@@ -25,24 +25,41 @@ class DeckViewer extends Component {
         }
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.togglePrivacy = this.togglePrivacy.bind(this);
+        this.onSaveClick = this.onSaveClick.bind(this);
     }
 
     componentDidMount() {
         // let fab = document.querySelector("#deckEditFAB");
         // M.FloatingActionButton.init(fab, {});
+        this.props.getDeckById(this.props.match.params.id);
         M.AutoInit();
     };
 
     componentDidUpdate() {
+        // this.props.getDeckById(this.props.match.params.id);
         M.AutoInit();
-    }
-
-    onEditClick = () => {
-
     };
 
-    onSaveClick = () => {
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            title: nextProps.selectedDeck.data.title,
+            description: nextProps.selectedDeck.data.description,
+            private: nextProps.selectedDeck.data.private
+        });
+    };
 
+    onSaveClick = e => {
+        // add error checking here
+        e.preventDefault();
+        console.log('saved');
+        console.log(this.state);
+        const deckPatch = {
+            title: this.state.title,
+            description: this.state.description,
+            private: this.state.private
+        };
+        this.props.patchDeckById(this.props.selectedDeck.data._id, deckPatch);
+        this.toggleEditMode();
     };
 
     onChange = e => {
@@ -67,16 +84,6 @@ class DeckViewer extends Component {
             this.setState({ private: true });
         }
     }
-
-    onSubmit = e => {
-        e.preventDefault();
-        const deckPatch = {
-            title: this.state.email,
-            description: this.state.password,
-            private: this.state.private
-        };
-        // this.props.loginUser(userData);
-    };
 
     render() {
         const { auth, selectedDeck } = this.props;
@@ -140,15 +147,15 @@ class DeckViewer extends Component {
                                         />
                                         <div className="switch col s6 right right-align">
                                             <label>
-                                                Private
+                                                Public
                                             <input
                                                     id="private"
                                                     type="checkbox"
                                                     checked={this.state.private}
                                                     onChange={this.togglePrivacy}
                                                 />
-                                                <span class="lever"></span>
-                                                Public
+                                                <span className="lever"></span>
+                                                Private
                                             </label>
                                         </div>
                                     </div>
@@ -169,7 +176,7 @@ class DeckViewer extends Component {
                                         <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre>
                                     </div>
                                     <div className="fixed-action-btn" id="saveFAB">
-                                        <a className="btn-floating btn-large blue z-depth-3">
+                                        <a className="btn-floating btn-large blue z-depth-3" onClick={this.onSaveClick}>
                                             <i className="large material-icons">save</i>
                                         </a>
                                     </div>
@@ -186,7 +193,8 @@ class DeckViewer extends Component {
 DeckViewer.propTypes = {
     auth: PropTypes.object.isRequired,
     selectedDeck: PropTypes.object.isRequired,
-    getDeckById: PropTypes.func.isRequired
+    getDeckById: PropTypes.func.isRequired,
+    patchDeckById: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -196,5 +204,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getDeckById }
+    { getDeckById, patchDeckById }
 )(withRouter(DeckViewer));
