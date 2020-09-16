@@ -13,7 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Grid, Card, CardContent, CardActions, Typography } from '@material-ui/core';
+import { Grid, Card, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import './DeckViewer.css';
 
@@ -70,7 +70,8 @@ class DeckViewer extends Component {
         const deckPatch = {
             title: this.state.title,
             description: this.state.description,
-            private: this.state.private
+            private: this.state.private,
+            cards: this.state.cards
         };
         this.props.patchDeckById(this.props.selectedDeck.data._id, deckPatch);
         this.toggleEditMode();
@@ -147,16 +148,17 @@ class DeckViewer extends Component {
                                     <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
                                     <div className="col s12 center-align">
                                         {selectedDeck.data.cards.length <= 0 &&
-                                            <p>No decks</p>
+                                            <p>No cards</p>
                                         }
                                         {selectedDeck.data.cards.length > 0 &&
-                                            selectedDeck.data.cards.map((card, i) => 
+                                            selectedDeck.data.cards.map((card, i) =>
                                                 <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
                                                     <CardContent>
-                                                        <Typography className="" color="textSecondary" gutterBottom>
+                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line' }} color="textPrimary" gutterBottom>
                                                             {card.prompt}
                                                         </Typography>
-                                                        <Typography variant="body2" component="p">
+                                                        <hr style={{ border: '1px solid #ccc', borderRadius: '1px' }} />
+                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line' }} color="textSecondary" gutterBottom>
                                                             {card.answer}
                                                         </Typography>
                                                     </CardContent>
@@ -229,32 +231,39 @@ class DeckViewer extends Component {
                                             {selectedDeck.data.cards.length > 0 &&
                                                 selectedDeck.data.cards.map((card, i) =>
                                                     <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
-                                                            <CardContent>
-                                                                <TextField
-                                                                    name="prompt"
-                                                                    label="Prompt"
-                                                                    // placeholder="Placeholder"
-                                                                    value={this.state.cards[i].prompt}
-                                                                    className="col s12"
-                                                                    style={{ marginBottom: "1rem" }}
-                                                                    multiline
-                                                                    // rowsMax={6}
-                                                                    s={12}
-                                                                    onChange={this.handleCardChange.bind(this, i)}
-                                                                />
-                                                                <TextField
-                                                                    name="answer"
-                                                                    label="Answer"
-                                                                    // placeholder="Placeholder"
-                                                                    value={this.state.cards[i].answer}
-                                                                    className="col s12"
-                                                                    style={{ marginBottom: "1rem" }}
-                                                                    multiline
-                                                                    // rowsMax={6}
-                                                                    s={12}
-                                                                    onChange={this.handleCardChange.bind(this, i)}
-                                                                />
-                                                            </CardContent>
+                                                        {/* <CardActions>
+                                                            <Button aria-label="delete" color="secondary" className="right-align">
+                                                                <i className="small right align-right red-text material-icons">
+                                                                    remove_circle
+                                                                </i>
+                                                            </Button>
+                                                        </CardActions> */}
+                                                        <CardContent>
+                                                            <TextField
+                                                                name="prompt"
+                                                                label="Prompt"
+                                                                // placeholder="Placeholder"
+                                                                value={this.state.cards[i].prompt}
+                                                                className="col s12"
+                                                                style={{ marginBottom: "1rem" }}
+                                                                multiline
+                                                                // rowsMax={6}
+                                                                s={12}
+                                                                onChange={this.handleCardChange.bind(this, i)}
+                                                            />
+                                                            <TextField
+                                                                name="answer"
+                                                                label="Answer"
+                                                                // placeholder="Placeholder"
+                                                                value={this.state.cards[i].answer}
+                                                                className="col s12"
+                                                                style={{ marginBottom: "1rem" }}
+                                                                multiline
+                                                                // rowsMax={6}
+                                                                s={12}
+                                                                onChange={this.handleCardChange.bind(this, i)}
+                                                            />
+                                                        </CardContent>
                                                     </Card>
                                                 )
                                             }

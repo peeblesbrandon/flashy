@@ -82,8 +82,6 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 // @note does not allow individual card updates, only array replacement - use api/decks/:id/cards/:id instead
 // @access private
 router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    console.log(req.body);
-    console.log(typeof req.body.private)
     Deck.findOne({ authorId: req.user._id, _id: req.params.id })
         .then(deck => {
             if (!deck) {
