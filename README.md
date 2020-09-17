@@ -1,68 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# flashy 
+> _create, study, and share your flashcards_  
 
-## Available Scripts
+Intuitive and social fullstack **flashcard application** built using a responsive **React/Redux** frontend (featuring a **Materal UI** design) connected to a **NodeJS/ExpressJS/MongoDB** backend. The ExpressJS server is designed as **REST API** which features **jsonwebtoken authentication via PassportJS**.  
 
-In the project directory, you can run:
+## Demo  
+Test out the live demo [here](https://limitless-beach-55214.herokuapp.com/) (deployed on Heroku).  
+_**Note:** this app is still in development as of 9/17/2020_  
 
-### `npm start`
+## Getting Started
+In order to deploy on localhost, you will need to first clone the app and install the required npm packaged dependencies.  
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Clone the repo:**  
+`git clone https://github.com/peeblesbrandon/flashy.git`  
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Install server dependencies:**  
+```
+cd flashy
+npm install
+```  
 
-### `npm test`
+**Install client dependencies:**  
+```
+cd client
+npm install
+```  
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Configuration:**  
+The server will expect to connect a MongoDB instance referenced in a `.env.` file. You can create a remote one at [https://account.mongodb.com/](https://account.mongodb.com/) to get your own URI. Once you have that, navigate to the main directory and create a `.env.` file.
+```
+cd ..
+touch .env
+```  
 
-### `npm run build`
+Add your enviornment variables in the following YAML format:
+```
+DATABASE="YOUR_MONGO_URI_WITH_USERNAME_PASSWORD_AND_DATABASE_NAME"
+NODE_ENV=development
+secretOrKey="YOUR_SECRET_OR_KEY_HERE"
+```
+Alternatively, you could use `mongodb://127.0.0.1:27017/FLASHY`as your URI above if you would rather use a local MongoDB instance. This requires that you have MongoDB installed on your local machine (which you should if you followed the above steps). For more info on setting up a local database, see this [blog](https://zellwk.com/blog/local-mongodb/).  
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Execute the startup script:**
+This will simultaenously start the client and server using nodemon.  
+`npm run dev`  
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+That's all folks!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deploy to Heroku  
+_Instructions coming soon_
 
-### `npm run eject`
+## Built with
+* ReactJS
+* Redux
+* ExpressJS
+* NodeJS
+* MongoDB
+* Mongoose
+* Materialize CSS & Material-UI
+* Axios
+* PassportJS
+* jsonwebtoken
+* bcryptjs  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Authors
+Brandon Peebles
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
