@@ -118,7 +118,7 @@ class DeckViewer extends Component {
 
     handleCardDelete = () => {
         const updatedCards = JSON.parse(JSON.stringify(this.state.cards));
-        console.log(updatedCards);
+        updatedCards.splice(this.state.indexToDelete, 1);
         this.setState({ cards: updatedCards });
         this.handleCardDeleteClose();
     }
