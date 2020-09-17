@@ -63,10 +63,10 @@ To summarize, it supports the following endpoints:
 |POST|api/decks|Create new deck (blank unless body provided)|  
 |GET|api/decks/:id|Get specific deck by id|  
 |DEL|api/decks/:id|Delete specific deck by id|  
-|PATCH|api/decks/:id|Create new deck (blank unless body provided)|  
-|POST|api/decks/:id/cards|Update cards array of deck by deck id|
-|PATCH|decks/:id/cards/:cardId|Update specific card by card and deck ids|  
-|DEL|decks/:id/cards/:cardId|Delete specific card by card and deck ids|  
+|POST|api/decks/:id|Create new deck (blank unless body provided)|  
+|PATCH|api/decks/:id/cards|Update cards array of deck by deck id|
+|PATCH|api/decks/:id/cards/:cardId|Update specific card by card and deck ids|  
+|DEL|api/decks/:id/cards/:cardId|Delete specific card by card and deck ids|  
 
 
 ## Deploy to Heroku  
