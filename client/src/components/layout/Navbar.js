@@ -66,6 +66,7 @@ class Navbar extends Component {
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" style={{}} onClick={this.onDecksClick}>Decks</a></li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Explore</a></li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Settings</a></li>
+                            <li className="no-padding-override"><a href="https://github.com/peeblesbrandon/flashy" className="sidenav-close">GitHub Repo</a></li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>
                             {/* <li>{LogoutButton}</li> */}
                         </ul>
