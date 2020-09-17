@@ -27,7 +27,7 @@ npm install
 ```  
 
 **Configuration:**  
-The server will expect to connect a MongoDB instance referenced in a `.env.` file. You can create a remote one at [https://account.mongodb.com/](https://account.mongodb.com/) to get your own URI. Once you have that, navigate to the main directory and create a `.env.` file.
+The server will expect to connect a MongoDB instance referenced in a `.env` file. You can create a remote one at [https://account.mongodb.com/](https://account.mongodb.com/) to get your own URI. Once you have that, navigate to the main directory and create a `.env.` file.
 ```
 cd ..
 touch .env
