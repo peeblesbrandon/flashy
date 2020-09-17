@@ -46,6 +46,29 @@ This will simultaenously start the client and server using nodemon.
 
 That's all folks!
 
+## Test API locally using Postman
+If you'd like to test the various endpoints of the REST API used in the Express server, you can reference the documentation published [here](https://documenter.getpostman.com/view/12210427/TVKA5KFJ).  
+
+To summarize, it supports the following endpoints:
+**Authentication**
+|REQUEST TYPE|ROUTE|DESCRIPTION|  
+|---|---|---|  
+|POST|api/users/register|Register new user|  
+|POST|api/users/login|Log user in|  
+
+**Decks (requires Bearer Token in Authorization header to perform below actions on documents associated with that user)**  
+|REQUEST TYPE|ROUTE|DESCRIPTION|  
+|---|---|---|  
+|GET|api/decks|Get all decks for a given user based on auth token|  
+|POST|api/decks|Create new deck (blank unless body provided)|  
+|GET|api/decks/:id|Get specific deck by id|  
+|DEL|api/decks/:id|Delete specific deck by id|  
+|PATCH|api/decks/:id|Create new deck (blank unless body provided)|  
+|POST|api/decks/:id/cards|Update cards array of deck by deck id|
+|PATCH|decks/:id/cards/:cardId|Update specific card by card and deck ids|  
+|DEL|decks/:id/cards/:cardId|Delete specific card by card and deck ids|  
+
+
 ## Deploy to Heroku  
 _Instructions coming soon_
 
