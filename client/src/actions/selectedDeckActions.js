@@ -44,6 +44,25 @@ export const patchDeckById = (id, deckPatch) => dispatch => {
         })
 }
 
+export const deleteDeckById = (id) => dispatch => {
+    dispatch(setDeckLoading());
+    axios
+        .delete(`/api/decks/${id}`)
+        .then(res => {
+            const { deletedDeck } = res.data;
+            dispatch({
+                type: SET_SELECTED_DECK,
+                payload: {}
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response
+            });
+        })
+}
+
 export const setDeckLoading = () => {
     return {
         type: DECK_LOADING

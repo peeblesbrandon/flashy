@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDeckById, patchDeckById } from '../../actions/selectedDeckActions';
+import { getDeckById, patchDeckById, deleteDeckById } from '../../actions/selectedDeckActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
@@ -13,30 +13,36 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Grid, Card, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
+import { Grid, Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import './DeckViewer.css';
 
 // components
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
 import Navbar from '../layout/Navbar';
-// import Flashcard from '../deck/Flashcard';
+import DeleteDeckButton from './DeleteDeckButton';
+import DeleteCardButton from './DeleteCardButton';
 
 class DeckViewer extends Component {
     constructor(props) {
         super(props);
-        console.log(`Constructing with id: ${this.props.computedMatch.params.id}`);
         this.state = {
             id: this.props.selectedDeck.data._id,
             title: this.props.selectedDeck.data.title,
             description: this.props.selectedDeck.data.description,
             private: this.props.selectedDeck.data.private,
             cards: this.props.selectedDeck.data.cards,
-            editMode: false
+            editMode: false,
+            deleteCardDialogOpen: false
         }
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.togglePrivacy = this.togglePrivacy.bind(this);
         this.onSaveClick = this.onSaveClick.bind(this);
+        this.onCardAddClick = this.onCardAddClick.bind(this);
+        this.handleCardDeleteOpen = this.handleCardDeleteOpen.bind(this);
+        this.handleCardDeleteClose = this.handleCardDeleteClose.bind(this);
+        this.handleCardDelete = this.handleCardDelete.bind(this);
+        this.handleDeckDelete = this.handleDeckDelete.bind(this);
     }
 
     componentDidMount() {
@@ -53,9 +59,8 @@ class DeckViewer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.selectedDeck) !== JSON.stringify(this.props.selectedDeck)) {
-            console.log('rerender');
             this.setState({
-                id: this.props.selectedDeck.data._id,
+                id: nextProps.selectedDeck.data._id,
                 title: nextProps.selectedDeck.data.title,
                 description: nextProps.selectedDeck.data.description,
                 private: nextProps.selectedDeck.data.private,
@@ -79,24 +84,48 @@ class DeckViewer extends Component {
 
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
-        if (e.target.id === 'description') {
-            // M.textareaAutoResize($('#description'));
-        }
     };
 
-    handleCardChange(i, e) {
+    handleCardChange = (i, e) => {
         const { name, value } = e.target;
         let cards = [...this.state.cards];
         cards[i] = { ...cards[i], [name]: value };
         this.setState({ cards });
     }
 
-    onDeleteClick = () => {
-
+    onCardAddClick = () => {
+        console.log('card add');
+        const newCard = {
+            prompt: '',
+            answer: '',
+            isLearned: false
+        };
+        let cards = [...this.state.cards, newCard];
+        this.setState({ cards });
     }
 
-    onDeleteClose = () => {
+    handleCardDeleteOpen = () => {
+        this.setState({
+            deleteCardDialogOpen: true
+        });
+    };
 
+    handleCardDeleteClose = () => {
+        this.setState({
+            deleteCardDialogOpen: false
+        });
+    };
+
+    handleCardDelete = (i, e) => {
+        let updatedCards = [...this.state.cards]
+        updatedCards.splice(i, 1);
+        this.setState({ cards: updatedCards });
+        this.handleCardDeleteClose();
+    }
+
+    handleDeckDelete = () => {
+        this.props.deleteDeckById(this.props.selectedDeck.data._id);
+        this.props.history.push('/dashboard');
     }
 
     toggleEditMode = () => {
@@ -117,15 +146,13 @@ class DeckViewer extends Component {
 
     render() {
         const { auth, selectedDeck } = this.props;
-        console.log(selectedDeck);
-        console.log(this.state);
         return (
             <div>
                 <Navbar />
                 {selectedDeck.loading === true &&
                     <LoadingSpinFullScreen />
                 }
-                {selectedDeck.loading === false &&
+                {selectedDeck.loading === false && selectedDeck.data !== {} &&
                     <div style={{ height: "100vh" }} className="container">
                         {!this.state.editMode &&
                             <div>
@@ -134,7 +161,7 @@ class DeckViewer extends Component {
                                         <i className="material-icons left left-align">keyboard_backspace</i>Back
                                     </button>
                                     <div>
-                                        <h5 className="col s11"><b className="left left-align red-text text-darken-3 truncate">{selectedDeck.data.title}</b></h5>
+                                        <h5 className="col s11"><b className="left left-align red-text text-darken-3 flow-text truncate">{selectedDeck.data.title}</b></h5>
                                         {selectedDeck.data.private &&
                                             <i className="right-align small material-icons grey-text vertical-align-middle col s1" style={{ padding: "5px" }}>lock</i>
                                         }
@@ -147,10 +174,10 @@ class DeckViewer extends Component {
                                     {/* <em className="col s12">Note: JSON output below is a placeholder</em>
                                     <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
                                     <div className="col s12 center-align">
-                                        {selectedDeck.data.cards.length <= 0 &&
-                                            <p>No cards</p>
+                                        {selectedDeck.data.cards !== undefined && selectedDeck.data.cards.length <= 0 &&
+                                            <p style={{ color: '#aaa' }}>No cards</p>
                                         }
-                                        {selectedDeck.data.cards.length > 0 &&
+                                        {selectedDeck.data.cards !== undefined && selectedDeck.data.cards.length > 0 &&
                                             selectedDeck.data.cards.map((card, i) =>
                                                 <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
                                                     <CardContent>
@@ -225,20 +252,16 @@ class DeckViewer extends Component {
                                         {/* <em className="col s12">Note: JSON output below is a placeholder</em>
                                         <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
                                         <div className="col s12 center-align">
-                                            {selectedDeck.data.cards.length <= 0 &&
-                                                <p>No decks</p>
-                                            }
-                                            {selectedDeck.data.cards.length > 0 &&
-                                                selectedDeck.data.cards.map((card, i) =>
+                                            {this.state.cards.length > 0 &&
+                                                this.state.cards.map((card, i) =>
                                                     <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
-                                                        {/* <CardActions>
-                                                            <Button aria-label="delete" color="secondary" className="right-align">
-                                                                <i className="small right align-right red-text material-icons">
-                                                                    remove_circle
-                                                                </i>
-                                                            </Button>
-                                                        </CardActions> */}
-                                                        <CardContent>
+                                                        <DeleteCardButton 
+                                                            open={this.state.deleteCardDialogOpen} 
+                                                            handleOpen={this.handleCardDeleteOpen} 
+                                                            handleClose={this.handleCardDeleteClose} 
+                                                            handleCardDelete={this.handleCardDelete} 
+                                                        />
+                                                        <CardContent style={{ paddingTop: '0' }}>
                                                             <TextField
                                                                 name="prompt"
                                                                 label="Prompt"
@@ -268,8 +291,14 @@ class DeckViewer extends Component {
                                                 )
                                             }
                                         </div>
+                                        <div style={{ margin: '1rem', minWidth: 275 }}>
+                                            <Button onClick={this.onCardAddClick} color="default" className="col s12" style={{ color: "#aaa", border: '3px dashed #eee', margin: '1rem 0', padding: '3rem 0' }}>
+                                                <i className="material-icons">add</i>
+                                            </Button>
+                                        </div>
+                                        <DeleteDeckButton handleDeckDelete={this.handleDeckDelete} />
                                     </div>
-                                    <div className="fixed-action-btn" id="saveFAB">
+                                    <div className="fixed-action-btn center-align" id="saveFAB">
                                         <a className="btn-floating btn-large blue z-depth-3" onClick={this.onSaveClick}>
                                             <i className="large material-icons">save</i>
                                         </a>
@@ -288,7 +317,8 @@ DeckViewer.propTypes = {
     auth: PropTypes.object.isRequired,
     selectedDeck: PropTypes.object.isRequired,
     getDeckById: PropTypes.func.isRequired,
-    patchDeckById: PropTypes.func.isRequired
+    patchDeckById: PropTypes.func.isRequired,
+    deleteDeckById: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -298,5 +328,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getDeckById, patchDeckById }
+    { getDeckById, patchDeckById, deleteDeckById }
 )(withRouter(DeckViewer));
