@@ -33,7 +33,8 @@ class DeckViewer extends Component {
             private: this.props.selectedDeck.data.private,
             cards: this.props.selectedDeck.data.cards,
             editMode: false,
-            deleteCardDialogOpen: false
+            deleteCardDialogOpen: false,
+            indexToDelete: undefined
         }
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.togglePrivacy = this.togglePrivacy.bind(this);
@@ -46,14 +47,11 @@ class DeckViewer extends Component {
     }
 
     componentDidMount() {
-        // let fab = document.querySelector("#deckEditFAB");
-        // M.FloatingActionButton.init(fab, {});
         this.props.getDeckById(this.props.match.params.id);
         M.AutoInit();
     };
 
     componentDidUpdate() {
-        // this.props.getDeckById(this.props.match.params.id);
         M.AutoInit();
     };
 
@@ -104,21 +102,23 @@ class DeckViewer extends Component {
         this.setState({ cards });
     }
 
-    handleCardDeleteOpen = () => {
+    handleCardDeleteOpen = (i) => {
         this.setState({
-            deleteCardDialogOpen: true
+            deleteCardDialogOpen: true,
+            indexToDelete: i
         });
     };
 
     handleCardDeleteClose = () => {
         this.setState({
-            deleteCardDialogOpen: false
+            deleteCardDialogOpen: false,
+            indexToDelete: undefined
         });
     };
 
-    handleCardDelete = (i, e) => {
-        let updatedCards = [...this.state.cards]
-        updatedCards.splice(i, 1);
+    handleCardDelete = () => {
+        const updatedCards = JSON.parse(JSON.stringify(this.state.cards));
+        console.log(updatedCards);
         this.setState({ cards: updatedCards });
         this.handleCardDeleteClose();
     }
@@ -130,9 +130,20 @@ class DeckViewer extends Component {
 
     toggleEditMode = () => {
         if (this.state.editMode) {
-            this.setState({ editMode: false });
+            this.setState({
+                editMode: false
+            });
         } else {
-            this.setState({ editMode: true });
+            this.setState({
+                editMode: true,
+                id: this.props.selectedDeck.data._id,
+                title: this.props.selectedDeck.data.title,
+                description: this.props.selectedDeck.data.description,
+                private: this.props.selectedDeck.data.private,
+                cards: this.props.selectedDeck.data.cards,
+                deleteCardDialogOpen: false,
+                indexToDelete: undefined
+            });
         }
     };
 
@@ -171,8 +182,6 @@ class DeckViewer extends Component {
                                     </div>
                                     <p className="col s12 grey-text">{selectedDeck.data.description}</p>
                                     <br />
-                                    {/* <em className="col s12">Note: JSON output below is a placeholder</em>
-                                    <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
                                     <div className="col s12 center-align">
                                         {selectedDeck.data.cards !== undefined && selectedDeck.data.cards.length <= 0 &&
                                             <p style={{ color: '#aaa' }}>No cards</p>
@@ -237,10 +246,9 @@ class DeckViewer extends Component {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <TextField // materialize css textarea wasnt autoresizing 
+                                        <TextField 
                                             id="description"
                                             label="Description"
-                                            // placeholder="Placeholder"
                                             value={this.state.description}
                                             className="col s12 left left-align"
                                             style={{ marginBottom: "1rem" }}
@@ -249,40 +257,41 @@ class DeckViewer extends Component {
                                             s={12}
                                             onChange={this.onChange}
                                         />
-                                        {/* <em className="col s12">Note: JSON output below is a placeholder</em>
-                                        <pre className="col s12 left-align maxLines">{JSON.stringify(selectedDeck.data, undefined, 2)}</pre> */}
                                         <div className="col s12 center-align">
+                                            <DeleteCardButton
+                                                open={this.state.deleteCardDialogOpen}
+                                                handleClose={this.handleCardDeleteClose}
+                                                handleCardDelete={this.handleCardDelete}
+                                            />
                                             {this.state.cards.length > 0 &&
                                                 this.state.cards.map((card, i) =>
                                                     <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
-                                                        <DeleteCardButton 
-                                                            open={this.state.deleteCardDialogOpen} 
-                                                            handleOpen={this.handleCardDeleteOpen} 
-                                                            handleClose={this.handleCardDeleteClose} 
-                                                            handleCardDelete={this.handleCardDelete} 
+                                                        <CardHeader
+                                                            style={{ padding: '5px' }}
+                                                            action={
+                                                                <IconButton onClick={() => this.handleCardDeleteOpen(i)} aria-label="delete">
+                                                                    <i className="small material-icons" style={{ padding: '0' }}>delete</i>
+                                                                </IconButton>
+                                                            }
                                                         />
                                                         <CardContent style={{ paddingTop: '0' }}>
                                                             <TextField
                                                                 name="prompt"
                                                                 label="Prompt"
-                                                                // placeholder="Placeholder"
                                                                 value={this.state.cards[i].prompt}
                                                                 className="col s12"
                                                                 style={{ marginBottom: "1rem" }}
                                                                 multiline
-                                                                // rowsMax={6}
                                                                 s={12}
                                                                 onChange={this.handleCardChange.bind(this, i)}
                                                             />
                                                             <TextField
                                                                 name="answer"
                                                                 label="Answer"
-                                                                // placeholder="Placeholder"
                                                                 value={this.state.cards[i].answer}
                                                                 className="col s12"
                                                                 style={{ marginBottom: "1rem" }}
                                                                 multiline
-                                                                // rowsMax={6}
                                                                 s={12}
                                                                 onChange={this.handleCardChange.bind(this, i)}
                                                             />

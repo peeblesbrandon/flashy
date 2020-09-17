@@ -10,14 +10,6 @@ import { CardHeader, IconButton } from '@material-ui/core';
 export default function DeleteCardButton(props) {
     return (
         <div style={{ margin: '1rem', minWidth: 275 }}>
-            <CardHeader
-                style={{ padding: '5px' }}
-                action={
-                    <IconButton onClick={props.handleOpen} aria-label="delete">
-                        <i className="small material-icons" style={{ padding: '0' }}>delete</i>
-                    </IconButton>
-                }
-            />
             <Dialog
                 open={props.open}
                 onClose={props.handleClose}
