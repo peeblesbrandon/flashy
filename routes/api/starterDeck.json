@@ -1,0 +1,36 @@
+{
+    "title": "Flashy 101 🔥",
+    "cards": [
+        {
+            "prompt": "Welcome to Flashy! 🎉",
+            "answer": "The best way to study and share flashcards!",
+            "isLearned": false,
+            "_id": "5f63ae34ab6a5b00178724c7"
+        },
+        {
+            "prompt": "To edit a deck, tap the red arrow button in the bottom right corner, and then click the yellow 'edit' icon.",
+            "answer": "Nice! 👏🏼 Now you can add, remove. and edit cards. ",
+            "isLearned": false,
+            "_id": "5f63ae34ab6a5b00178724c8"
+        },
+        {
+            "prompt": "But wait, there's more! 😮",
+            "answer": "You can also edit the title and description from here. You can even toggle your deck to public, so others can learn from your flashcards too! 🌎",
+            "isLearned": false,
+            "_id": "5f63ae34ab6a5b00178724c9"
+        },
+        {
+            "prompt": "Want to save your changes?",
+            "answer": "Just click the blue save button in the bottom right corner.",
+            "isLearned": false,
+            "_id": "5f63ae34ab6a5b00178724ca"
+        },
+        {
+            "prompt": "Ready to start studying? ",
+            "answer": "Just click the red arrow button again, and then click the green 'start' button. ▶️",
+            "isLearned": false,
+            "_id": "5f63ae34ab6a5b00178724cb"
+        }
+    ],
+    "private": true
+}

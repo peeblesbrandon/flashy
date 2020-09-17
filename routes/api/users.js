@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const starterDeck = require('./starterDeck.json');
 
 // proxy routing
 router.use(express.json());
@@ -11,8 +12,9 @@ router.use(express.urlencoded({ extended: false }));
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
-// load mongoose user model
+// load mongoose models
 const User = require('../../models/user.model');
+const Deck = require('../../models/deck.model');
 
 // @route POST api/users/register
 // @desc register user
@@ -23,7 +25,7 @@ router.post('/register', (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
-
+    console.log(req.body.email);
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
             return res.status(400).json({ email: 'Email already exists' });
@@ -39,10 +41,18 @@ router.post('/register', (req, res) => {
                 bcrypt.hash(newUser.hash, salt, (err, hash) => {
                     if (err) throw err;
                     newUser.hash = hash;
-                    newUser
-                        .save()
-                        .then(user => res.json(user))
-                        .catch(err => console.log(err));
+                    // save user, and then create starter/tutorial deck using new userId 
+                    var userPromise = newUser.save();
+                    var deckPromise = userPromise.then(user =>{
+                        const newDeck = new Deck(starterDeck);
+                        newDeck.authorId = user._id;
+                        return newDeck.save();
+                    });                      
+                    // return saved user
+                    Promise.all([userPromise, deckPromise]).then(([user, deck]) => {
+                        return res.status(201).json(user);
+                    })
+                    .catch(err => console.log(err));
                 });
             });
         }
