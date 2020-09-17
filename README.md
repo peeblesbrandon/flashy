@@ -2,6 +2,7 @@
 > _create, study, and share your flashcards_  
 
 Intuitive and social fullstack **flashcard application** built using a responsive **React/Redux** frontend (featuring a **Materal UI** design) connected to a **NodeJS/ExpressJS/MongoDB** backend. The ExpressJS server is designed as **REST API** which features **jsonwebtoken authentication via PassportJS**.  
+<a href="https://imgur.com/X6EZDJN"><img src="https://i.imgur.com/X6EZDJNm.png" title="source: imgur.com" align="right" /></a>  
 
 ## Demo  
 Test out the live demo [here](https://limitless-beach-55214.herokuapp.com/) (deployed on Heroku).  
