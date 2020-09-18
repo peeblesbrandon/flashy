@@ -160,7 +160,7 @@ class DeckViewer extends Component {
         return (
             <div>
                 <Navbar />
-                {selectedDeck.loading === true &&
+                {(selectedDeck.loading === undefined || selectedDeck.loading === true) &&
                     <LoadingSpinFullScreen />
                 }
                 {selectedDeck.loading === false && selectedDeck.data !== {} &&
