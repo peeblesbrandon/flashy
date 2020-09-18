@@ -1,11 +1,33 @@
-/* .deck-hover {
-    padding: 20px;
-    margin: 20px;
-    background-color: #ddd ;
-    box-shadow: 10px 10px 5px #888; 
+.paper {
+  /* background-color: #fff; */
+  position: relative;
 }
 
-.deck-hover:hover {
-    background-color: #bbb ;
-    box-shadow: 10px 10px 5px #666; 
-} */
+.paper,
+.paper::before,
+.paper::after {
+  box-shadow: 2px 1px 1px rgba(0,0,0,0.2);
+}
+
+.paper::before,
+.paper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+}
+
+/* Second card */
+.paper::before {
+  left: 7px;
+  top: 5px;
+  z-index: -1;
+}
+
+/* Third card */
+.paper::after {
+  left: 12px;
+  top: 10px;
+  z-index: -2;
+}
