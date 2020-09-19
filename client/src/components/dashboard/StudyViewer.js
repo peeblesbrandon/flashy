@@ -116,13 +116,13 @@ class StudyViewer extends Component {
         const { auth, studySession } = this.props;
         // console.log(this.state);
         return (
-            <div>
+            <div style={{ width: "100vw", height: "100vh" }} className="grey darken-2"a>
                 <Navbar />
                 {(studySession.loading === undefined || studySession.loading === true) &&
                     <LoadingSpinFullScreen />
                 }
                 {studySession.loading === false &&
-                    <div style={{ width: "100%", height: "100vh" }} className="grey darken-2 container">
+                    <div>
                         <div className="row valign-wrapper">
                             <button onClick={this.props.history.goBack} className="col s6 left left-align btn-flat waves-effect white-text">
                                 <i className="material-icons left left-align">keyboard_backspace</i>Back
