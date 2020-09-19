@@ -124,10 +124,10 @@ class StudyViewer extends Component {
                 {studySession.loading === false &&
                     <div>
                         <div className="row valign-wrapper">
-                            <button onClick={this.props.history.goBack} className="col s6 left left-align btn-flat waves-effect white-text">
+                            <button onClick={this.props.history.goBack} className="col s6 left left-align btn-flat waves-effect white-text" style={{padding: '0 1rem'}}>
                                 <i className="material-icons left left-align">keyboard_backspace</i>Back
                             </button>
-                            <div className="col s6 right right-align white-text">
+                        <div className="col s6 right right-align white-text" style={{ padding: '0 2rem' }}>
                                 {!completed && studySession.cards &&
                                     <em>{this.state.currIndex + 1} / {studySession.cards.length}</em>
                                 }
