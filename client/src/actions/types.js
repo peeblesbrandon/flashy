@@ -15,3 +15,8 @@ export const GET_DECK_BY_ID = 'GET_DECK_BY_ID';
 export const DECK_LOADING = 'DECK_LOADING';
 export const SET_SELECTED_DECK = 'SET_SELECTED_DECK';
 export const GET_SELECTED_DECK = 'GET_SELECTED_DECK';
+// study session
+export const SET_CARDS_START = 'SET_CARDS_START';
+export const SET_CARDS_SUCCESS = 'SET_CARDS_SUCCESS';
+export const SET_CARDS_FAILURE = 'SET_CARDS_FAILURE';
+export const CLEAR_CARDS = 'CLEAR_CARDS';

@@ -44,6 +44,7 @@ class DeckViewer extends Component {
         this.handleCardDeleteClose = this.handleCardDeleteClose.bind(this);
         this.handleCardDelete = this.handleCardDelete.bind(this);
         this.handleDeckDelete = this.handleDeckDelete.bind(this);
+        this.handleStartClick = this.handleStartClick.bind(this);
     }
 
     componentDidMount() {
@@ -128,6 +129,10 @@ class DeckViewer extends Component {
         this.props.history.push('/dashboard');
     }
 
+    handleStartClick = () => {
+        this.props.history.push(`/study/${this.props.selectedDeck.data._id}`);
+    }
+
     toggleEditMode = () => {
         if (this.state.editMode) {
             this.setState({
@@ -210,7 +215,7 @@ class DeckViewer extends Component {
                                     <ul>
                                         <li><a className="btn-floating yellow darken-3"><i className="material-icons" onClick={this.toggleEditMode}>mode_edit</i></a></li>
                                         {/* <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li> */}
-                                        <li><a className="btn-floating green darken-2"><i className="material-icons">play_arrow</i></a></li>
+                                        <li><a className="btn-floating green darken-2" disabled={selectedDeck.data.cards.length <= 0 ? true : false}><i className="material-icons" onClick={this.handleStartClick}>play_arrow</i></a></li>
                                     </ul>
                                 </div>
                             </div>
