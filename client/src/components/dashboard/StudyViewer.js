@@ -16,12 +16,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import './StudyViewer.css';
+import 'react-circular-progressbar/dist/styles.css';
 
 // components
 import LoadingSpinFullScreen from '../loader/LoadingSpinFullScreen';
 import Navbar from '../layout/Navbar';
 import selectedDeckReducer from '../../reducers/selectedDeckReducer';
 import { session } from 'passport';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 class StudyViewer extends Component {
     constructor(props) {
@@ -37,6 +39,7 @@ class StudyViewer extends Component {
         this.handleWrongClick = this.handleWrongClick.bind(this);
         this.handleRestartAll = this.handleRestartAll.bind(this);
         this.handleRestartIncorrect = this.handleRestartIncorrect.bind(this);
+        this.getPercentCorrect = this.getPercentCorrect.bind(this);
     }
 
     componentDidMount() {
@@ -111,12 +114,17 @@ class StudyViewer extends Component {
         });
     }
 
+    getPercentCorrect = () => {
+        let correct = this.props.studySession.cards.length - this.state.incorrectCards.length;
+        return Math.round(correct / this.props.studySession.cards.length * 100);
+    }
+
     render() {
         const { incorrectCards, currIndex, studyIncorrect, flipped, completed } = this.state;
         const { auth, studySession } = this.props;
         // console.log(this.state);
         return (
-            <div style={{ width: "100vw", height: "100vh" }} className="grey darken-2"a>
+            <div style={{ width: "100vw", height: "100vh" }} className="grey darken-2" a>
                 <Navbar />
                 {(studySession.loading === undefined || studySession.loading === true) &&
                     <LoadingSpinFullScreen />
@@ -124,10 +132,10 @@ class StudyViewer extends Component {
                 {studySession.loading === false &&
                     <div>
                         <div className="row valign-wrapper">
-                            <button onClick={this.props.history.goBack} className="col s6 left left-align btn-flat waves-effect white-text" style={{padding: '0 1rem'}}>
+                            <button onClick={this.props.history.goBack} className="col s6 left left-align btn-flat waves-effect white-text" style={{ padding: '0 1rem' }}>
                                 <i className="material-icons left left-align">keyboard_backspace</i>Back
                             </button>
-                        <div className="col s6 right right-align white-text" style={{ padding: '0 2rem' }}>
+                            <div className="col s6 right right-align white-text" style={{ padding: '0 2rem' }}>
                                 {!completed && studySession.cards &&
                                     <em>{this.state.currIndex + 1} / {studySession.cards.length}</em>
                                 }
@@ -162,16 +170,30 @@ class StudyViewer extends Component {
                             </div>
                         }
                         {completed &&
-                            <div className="container">
-                                <h3 className="white-text">done! (this page to be styled)</h3>
+                            <div className="row">
+                                <h3 className="white-text center-align col s12" style={{ margin: '1rem 0 2rem 0' }}>Nice work!</h3>
                                 <div className="row">
-
-                                    <div className="btn blue waves-effect col s12" style={{ margin: '1rem' }} onClick={this.handleRestartAll}>
-                                        Study all cards
-                                    </div>
+                                    <CircularProgressbar
+                                        className="center col s10 push-s1 m8 push-m2 l4 push-l4"
+                                        value={this.getPercentCorrect()}
+                                        text={`${this.getPercentCorrect()}%`}
+                                        styles={buildStyles({
+                                            strokeLinecap: 'butt',
+                                            pathColor: '#00FF7F',
+                                            textColor: '#00FF7F',
+                                            trailColor: '#d6d6d6'
+                                        })}
+                                    />
+                                </div>
+                                <div className="row">
+                                        <div className="btn grey lighten-4 black-text waves-effect flow-text col s10 push-s1 m8 push-m2 l4 push-l4" style={{ margin: '2rem 0 1rem 0' }} onClick={this.handleRestartAll}>
+                                            <strong>Study all cards</strong>
+                                        </div>
+                                </div>
+                                <div className="row">
                                     {incorrectCards.length > 0 &&
-                                        <div className="btn blue waves-effect flow-text col s12" style={{ margin: '1rem', padding: '0 1rem' }} onClick={this.handleRestartIncorrect}>
-                                            Study incorrect cards
+                                        <div className="btn waves-effect black-text flow-text col s10 push-s1 m8 push-m2 l4 push-l4" style={{ margin: '1rem 0', backgroundColor: '#00FF7F' }} onClick={this.handleRestartIncorrect}>
+                                            <strong>Study incorrect cards</strong>
                                         </div>
                                     }
                                 </div>
