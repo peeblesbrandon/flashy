@@ -174,25 +174,25 @@ class StudyViewer extends Component {
                                 <h3 className="white-text center-align col s12" style={{ margin: '1rem 0 2rem 0' }}>Nice work!</h3>
                                 <div className="row">
                                     <CircularProgressbar
-                                        className="center col s10 push-s1 m8 push-m2 l4 push-l4"
+                                        className="center col s10 push-s1 m8 push-m2 l2 push-l5"
                                         value={this.getPercentCorrect()}
                                         text={`${this.getPercentCorrect()}%`}
                                         styles={buildStyles({
                                             strokeLinecap: 'butt',
                                             pathColor: '#00FF7F',
-                                            textColor: '#00FF7F',
-                                            trailColor: '#d6d6d6'
+                                            textColor: '#ffffff',
+                                            trailColor: '#ffffff'
                                         })}
                                     />
                                 </div>
                                 <div className="row">
-                                        <div className="btn grey lighten-4 black-text waves-effect flow-text col s10 push-s1 m8 push-m2 l4 push-l4" style={{ margin: '2rem 0 1rem 0' }} onClick={this.handleRestartAll}>
+                                        <div className="btn grey lighten-4 black-text waves-effect flow-text col s10 push-s1 m8 push-m2 l2 push-l5" style={{ margin: '2rem 0 1rem 0' }} onClick={this.handleRestartAll}>
                                             <strong>Study all cards</strong>
                                         </div>
                                 </div>
                                 <div className="row">
                                     {incorrectCards.length > 0 &&
-                                        <div className="btn waves-effect black-text flow-text col s10 push-s1 m8 push-m2 l4 push-l4" style={{ margin: '1rem 0', backgroundColor: '#00FF7F' }} onClick={this.handleRestartIncorrect}>
+                                        <div className="btn waves-effect black-text flow-text col s10 push-s1 m8 push-m2 l2 push-l5" style={{ margin: '1rem 0', backgroundColor: '#00FF7F' }} onClick={this.handleRestartIncorrect}>
                                             <strong>Study incorrect cards</strong>
                                         </div>
                                     }
