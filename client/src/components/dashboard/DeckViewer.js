@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getDecks } from '../../actions/deckActions';
 import { getDeckById, patchDeckById, deleteDeckById } from '../../actions/selectedDeckActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import TextField from '@material-ui/core/TextField';
@@ -126,6 +127,7 @@ class DeckViewer extends Component {
 
     handleDeckDelete = () => {
         this.props.deleteDeckById(this.props.selectedDeck.data._id);
+        this.props.getDecks();
         this.props.history.push('/dashboard');
     }
 
@@ -209,7 +211,10 @@ class DeckViewer extends Component {
                                     </div>
                                 </div>
                                 <div className="fixed-action-btn" id="deckEditFAB">
-                                    <a className="btn-floating btn-large red darken-3 z-depth-3">
+                                    <a className={`btn-floating btn-large red darken-3 z-depth-3
+                                        ${(selectedDeck.data.cards !== undefined && 
+                                        selectedDeck.data.cards.length <= 0) ? 'pulse' : ''} `}
+                                    >
                                         <i className="large material-icons">expand_less</i>
                                     </a>
                                     <ul>
@@ -332,7 +337,8 @@ DeckViewer.propTypes = {
     selectedDeck: PropTypes.object.isRequired,
     getDeckById: PropTypes.func.isRequired,
     patchDeckById: PropTypes.func.isRequired,
-    deleteDeckById: PropTypes.func.isRequired
+    deleteDeckById: PropTypes.func.isRequired,
+    getDecks: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -342,5 +348,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getDeckById, patchDeckById, deleteDeckById }
+    { getDeckById, patchDeckById, deleteDeckById, getDecks }
 )(withRouter(DeckViewer));
