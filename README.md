@@ -1,7 +1,7 @@
 # flashy 
 > _create, study, and share your flashcards_  
 
-Intuitive and social fullstack **flashcard application** built using a responsive **React/Redux** frontend (featuring a **Materal UI** design) connected to a **NodeJS/ExpressJS/MongoDB** backend. The ExpressJS server is designed as a **REST API** which features **jsonwebtoken authentication via PassportJS**.  
+Intuitive and social fullstack **flashcard application** built using a responsive **React/Redux** frontend (featuring a **Materal UI** design and markdown text support) connected to a **NodeJS/ExpressJS/MongoDB** backend. The ExpressJS server is designed as a **REST API** which features **jsonwebtoken authentication via PassportJS**.  
 <p align="center"><img src="https://i.imgur.com/X6EZDJNm.png" title="source: imgur.com" /></p>  
 
 ## Demo  
