@@ -21,6 +21,12 @@
             "_id": "5f63ae34ab6a5b00178724c9"
         },
         {
+          "prompt": "Best of all: *flashy* suports _Markdown_",
+          "answer": "### This means that:  \n* You can add bulleted lists  \n* Like this!\n  \n```print('Or add <code /> blocks, like this!')```\n  \nAnd more!   \n\nYou can even add photos!  \n![image of doge](https://static.wikia.nocookie.net/dogelore/images/9/97/Doge.jpg/revision/latest/top-crop/width/360/height/450?cb=20190205113053)",
+          "isLearned": false,
+          "_id": "5f63ae34ab6a5b00178724c9"
+        },
+        {
             "prompt": "Want to save your changes?",
             "answer": "Just click the blue save button in the bottom right corner.",
             "isLearned": false,

@@ -30,3 +30,8 @@
 .mui_title {
     font-size: 14;
 }
+
+.markdown li {
+    list-style: disc !important;
+    list-style-type: disc !important;
+}

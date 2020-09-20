@@ -15,6 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
+import ReactMarkdown from "react-markdown";
 import './StudyViewer.css';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -147,11 +148,11 @@ class StudyViewer extends Component {
                                     <div className="col s10 center push-s1">
                                         <div className="flip-card" onClick={this.handleFlipClick} style={{ margin: '3rem 1rem' }}>
                                             <div className={`flip-card-inner flow-text ${this.state.flipped ? 'is-flipped' : ''}`}>
-                                                <div className="flip-card-front rounded z-depth-5" style={{ whiteSpace: 'pre-line' }}>
-                                                    <strong>{studySession.cards[currIndex].prompt}</strong>
+                                                <div className="flip-card-front rounded z-depth-5" style={{ padding: "1 rem" }}>
+                                                    <ReactMarkdown className="markdown responsive-img left-align" source={`${studySession.cards[currIndex].prompt}`} />
                                                 </div>
-                                                <div className="flip-card-back rounded z-depth-5" style={{ whiteSpace: 'pre-line' }}>
-                                                    <em>{studySession.cards[currIndex].answer}</em>
+                                                <div className="flip-card-back rounded z-depth-5" >
+                                                    <ReactMarkdown className="markdown responsive-img left-align" source={`${studySession.cards[currIndex].answer}`} style={{ marginLeft: "1 rem" }} />
                                                 </div>
                                             </div>
                                         </div>
@@ -174,7 +175,7 @@ class StudyViewer extends Component {
                                 <h3 className="white-text center-align col s12" style={{ margin: '1rem 0 2rem 0' }}>Nice work!</h3>
                                 <div className="row">
                                     <CircularProgressbar
-                                        className="center col s10 push-s1 m8 push-m2 l2 push-l5"
+                                        className="center col s6 push-s3 l2 push-l5"
                                         value={this.getPercentCorrect()}
                                         text={`${this.getPercentCorrect()}%`}
                                         styles={buildStyles({
