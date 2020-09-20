@@ -5,7 +5,7 @@ Intuitive and social fullstack **flashcard application** built using a responsiv
 <p align="center"><img src="https://i.imgur.com/X6EZDJNm.png" title="source: imgur.com" /></p>  
 
 ## Demo  
-Test out the live demo [here](https://limitless-beach-55214.herokuapp.com/) (deployed on Heroku).  
+Test out the live demo [here](https://flashy-app.herokuapp.com/) (deployed on Heroku).  
 _**Note:** this app is still in development as of 9/17/2020_  
 
 ## Getting Started
