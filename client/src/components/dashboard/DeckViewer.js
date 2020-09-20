@@ -16,6 +16,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Card, CardHeader, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
+import ReactMarkdown from "react-markdown";
 import './DeckViewer.css';
 
 // components
@@ -196,13 +197,13 @@ class DeckViewer extends Component {
                                         {selectedDeck.data.cards !== undefined && selectedDeck.data.cards.length > 0 &&
                                             selectedDeck.data.cards.map((card, i) =>
                                                 <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
-                                                    <CardContent>
-                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line' }} color="textPrimary" gutterBottom>
-                                                            {card.prompt}
+                                                    <CardContent style={{overflow: 'scroll'}}>
+                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line', paddingLeft: '1rem' }} color="textPrimary" gutterBottom>
+                                                            <ReactMarkdown className="markdown left-align" source={`${card.prompt}`} />
                                                         </Typography>
                                                         <hr style={{ border: '1px solid #ccc', borderRadius: '1px' }} />
-                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line' }} color="textSecondary" gutterBottom>
-                                                            {card.answer}
+                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line', paddingLeft: '1rem' }} color="textSecondary" gutterBottom>
+                                                            <ReactMarkdown className="markdown left-align" source={`${card.answer}`} />
                                                         </Typography>
                                                     </CardContent>
                                                 </Card>

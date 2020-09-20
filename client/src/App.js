@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import './App.css';
+import 'materialize-css'; // installs the JS asset only
 import 'materialize-css/dist/css/materialize.min.css';
 
 // redux
