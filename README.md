@@ -91,6 +91,7 @@ _Instructions coming soon_
 * MongoDB
 * Mongoose
 * Materialize CSS & Material-UI
+* React-Markdown
 * Axios
 * PassportJS
 * jsonwebtoken
