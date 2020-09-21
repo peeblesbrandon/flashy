@@ -6,7 +6,7 @@ Intuitive and social fullstack **flashcard application** built using a responsiv
 
 ## Demo  
 Test out the live demo [here](https://flashy-app.herokuapp.com/) (deployed on Heroku).  
-_**Note:** this app is still in development as of 9/20/2020_  
+_**Note:** this app is still in development as of 9/20/2020. Sharing features to be added_  
 
 |Study mode|Creating a deck|Editing a deck|Markdown support
 |---|---|---|---|
