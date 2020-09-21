@@ -59,6 +59,7 @@ That's all folks!
 If you'd like to test the various endpoints of the REST API used in the Express server, you can reference the documentation published [here](https://documenter.getpostman.com/view/12210427/TVKA5KFJ). To download and install Postman, visit their website [here](https://www.postman.com).
 
 To summarize, it supports the following endpoints:  
+  
 **Authentication**
 |REQUEST TYPE|ROUTE|DESCRIPTION|  
 |---|---|---|  
