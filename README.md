@@ -16,7 +16,9 @@ _**Note:** this app is still in development as of 9/20/2020. Sharing features to
 In order to deploy on localhost, you will need to first clone the app and install the required npm packaged dependencies.  
 
 **Clone the repo:**  
-`git clone https://github.com/peeblesbrandon/flashy.git`  
+```
+git clone https://github.com/peeblesbrandon/flashy.git
+```  
 
 **Install server dependencies:**  
 ```
@@ -47,7 +49,9 @@ Alternatively, you could use `mongodb://127.0.0.1:27017/FLASHY`as your URI above
 
 **Execute the startup script:**
 This will simultaenously start the client and server using nodemon.  
-`npm run dev`  
+```
+npm run dev
+```  
 
 That's all folks!
 
