@@ -6,7 +6,11 @@ Intuitive and social fullstack **flashcard application** built using a responsiv
 
 ## Demo  
 Test out the live demo [here](https://flashy-app.herokuapp.com/) (deployed on Heroku).  
-_**Note:** this app is still in development as of 9/17/2020_  
+_**Note:** this app is still in development as of 9/20/2020_  
+
+|Study mode|Creating a deck|Editing a deck|Markdown support
+|---|---|---|---|
+|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_study.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_create.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_edit.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_markdown.gif" width="200" />|
 
 ## Getting Started
 In order to deploy on localhost, you will need to first clone the app and install the required npm packaged dependencies.  
