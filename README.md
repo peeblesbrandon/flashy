@@ -58,14 +58,15 @@ That's all folks!
 ## Test API locally using Postman
 If you'd like to test the various endpoints of the REST API used in the Express server, you can reference the documentation published [here](https://documenter.getpostman.com/view/12210427/TVKA5KFJ). To download and install Postman, visit their website [here](https://www.postman.com).
 
-To summarize, it supports the following endpoints:
+To summarize, it supports the following endpoints:  
 **Authentication**
 |REQUEST TYPE|ROUTE|DESCRIPTION|  
 |---|---|---|  
 |POST|api/users/register|Register new user|  
 |POST|api/users/login|Log user in|  
 
-**Decks (requires Bearer Token in Authorization header to perform below actions on documents associated with that user)**  
+**Decks**  
+_(requires Bearer Token in Authorization header to perform below actions on documents associated with that user)_  
 |REQUEST TYPE|ROUTE|DESCRIPTION|  
 |---|---|---|  
 |GET|api/decks|Get all decks for a given user based on auth token|  
