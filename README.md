@@ -13,7 +13,7 @@ _**Note:** Sharing features to be added soon_
 |<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_study.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_create.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_edit.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_markdown.gif" width="200" />|
 
 ## Getting Started
-In order to deploy on localhost, you will need to first clone the app and install the required npm packaged dependencies.  
+In order to deploy on localhost, you will need to first clone the app and install the required npm package dependencies.  
 
 **Clone the repo:**  
 ```
