@@ -2,6 +2,7 @@ import {
     GET_ERRORS,
     GET_DECKS,
     DECKS_LOADING,
+    SEARCH_DECKS,
     CREATE_DECK_START,
     CREATE_DECK_SUCCESS,
     CREATE_DECK_FAILURE
@@ -10,8 +11,7 @@ import {
 const initialState = {
     data: {},
     loading: false,
-    // newDeckId: undefined,
-    // isCreatingDeck: false
+    filtered: []
 };
 
 export default function (state = initialState, action) {
@@ -27,19 +27,14 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: true
             };
-        // case CREATE_DECK_START:
-        //     return {
-        //         ...state,
-        //         isCreatingDeck: true
-        //     }
-        // case CREATE_DECK_SUCCESS:
-        //     return {
-        //         ...state,
-        //         isCreatingDeck: false,
-        //         newDeckId: action.payload._id
-        //     }
-        // case CREATE_DECK_FAILURE:
-            
+        case SEARCH_DECKS:
+            return {
+                ...state,
+                loading: false,
+                filtered: state.data.filter(deck => {
+                    return deck.title.toLowerCase().includes(action.payload.toLowerCase())
+                })
+            };
         default:
             return state;
     }

@@ -4,6 +4,7 @@ import {
     CLEAR_ERRORS,
     GET_DECKS,
     DECKS_LOADING,
+    SEARCH_DECKS
     // CREATE_DECK_START,
     // CREATE_DECK_SUCCESS
 } from './types';
@@ -29,26 +30,15 @@ export const getDecks = () => dispatch => {
         });
 };
 
-// export const createDeck = (title) => dispatch => {
-//     dispatch({ type: CREATE_DECK_START });
-//     axios
-//         .post(`/api/decks`)
-//         .then(res => {
-//             dispatch({
-//                 type: CREATE_DECK_SUCCESS,
-//                 payload: res.data
-//             });
-//             dispatch({
-//                 type: CLEAR_ERRORS
-//             });
-//         })
-//         .catch(err => {
-//             dispatch({
-//                 type: GET_ERRORS,
-//                 payload: err
-//             });
-//         });
-//  };
+export const searchDecks = (query_str) => dispatch => {
+    if (query_str !== '') {
+        dispatch(setDecksLoading());
+        dispatch({
+            type: SEARCH_DECKS,
+            payload: query_str
+        });
+    }    
+}
 
 export const setDecksLoading = () => {
     return {

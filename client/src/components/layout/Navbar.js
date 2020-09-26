@@ -38,14 +38,13 @@ class Navbar extends Component {
                             <Link to="/" style={{ fontFamily: "monospace" }} className="col s5 brand-logo center-align black-text">
                                 <i className="material-icons md-36" style={{ color: "black", marginLeft: "1rem" }}>whatshot</i>
                             </Link>
-                            {/* {LogoutButton} */}
                             {auth.isAuthenticated &&
                                 <div>
                                     <a href="#/" data-target="slide-out" className="sidenav-trigger"><i className="material-icons md-36" style={{ color: "black" }}>menu</i></a>
                                     <ul className="right hide-on-med-and-down">
                                         <li><a href="#/" className="black-text">Decks</a></li>
-                                        <li><a href="#/" className="black-text"><span className="new badge red" data-badge-caption="coming soon" style={{ marginRight: "1rem" }} />Explore</a></li>
-                                        <li><a href="#/" className="black-text"><span className="new badge red" data-badge-caption="coming soon" style={{ marginRight: "1rem" }} />Settings</a></li>
+                                        <li><a href="#/" className="black-text">Explore</a></li>
+                                        {/* <li><a href="#/" className="black-text"><span className="new badge red" data-badge-caption="coming soon" style={{ marginRight: "1rem" }} />Settings</a></li> */}
                                         <li><a href="#/" className="black-text" onClick={this.onLogoutClick}>Logout</a></li>
                                     </ul>
                                 </div>
@@ -64,8 +63,8 @@ class Navbar extends Component {
                                 </h4>
                             </li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" style={{}} onClick={this.onDecksClick}>Decks</a></li>
-                            <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Explore</a></li>
-                            <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Settings</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close">Explore</a></li>
+                            {/* <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Settings</a></li> */}
                             <li className="no-padding-override"><a href="https://github.com/peeblesbrandon/flashy" className="sidenav-close">GitHub Repo</a></li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>
                             {/* <li>{LogoutButton}</li> */}
