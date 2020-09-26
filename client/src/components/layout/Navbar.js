@@ -43,7 +43,7 @@ class Navbar extends Component {
                                     <a href="#/" data-target="slide-out" className="sidenav-trigger"><i className="material-icons md-36" style={{ color: "black" }}>menu</i></a>
                                     <ul className="right hide-on-med-and-down">
                                         <li><a href="#/" className="black-text">Decks</a></li>
-                                        <li><a href="#/" className="black-text">Explore</a></li>
+                                        <li><a href="#/" className="black-text"><span className="new badge red" data-badge-caption="coming soon" />Explore</a></li>
                                         {/* <li><a href="#/" className="black-text"><span className="new badge red" data-badge-caption="coming soon" style={{ marginRight: "1rem" }} />Settings</a></li> */}
                                         <li><a href="#/" className="black-text" onClick={this.onLogoutClick}>Logout</a></li>
                                     </ul>
@@ -63,7 +63,7 @@ class Navbar extends Component {
                                 </h4>
                             </li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" style={{}} onClick={this.onDecksClick}>Decks</a></li>
-                            <li className="no-padding-override"><a href="#/" className="sidenav-close">Explore</a></li>
+                            <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Explore</a></li>
                             {/* <li className="no-padding-override"><a href="#/" className="sidenav-close"><span className="new badge red" data-badge-caption="coming soon" />Settings</a></li> */}
                             <li className="no-padding-override"><a href="https://github.com/peeblesbrandon/flashy" className="sidenav-close">GitHub Repo</a></li>
                             <li className="no-padding-override"><a href="#/" className="sidenav-close" onClick={this.onLogoutClick}>Logout</a></li>
