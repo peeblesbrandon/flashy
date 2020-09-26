@@ -6,14 +6,14 @@ Intuitive and social fullstack **flashcard application** built using a responsiv
 
 ## Demo  
 Test out the live demo [here](https://flashy-app.herokuapp.com/) (deployed on Heroku).  
-_**Note:** this app is still in development as of 9/20/2020. Sharing features to be added_  
+_**Note:** Sharing features to be added soon_  
 
 |Study mode|Creating a deck|Editing a deck|Markdown support
 |---|---|---|---|
 |<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_study.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_create.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_deck_edit.gif" width="200" />|<img src="https://github.com/peeblesbrandon/flashy/blob/master/demo/flashy_markdown.gif" width="200" />|
 
 ## Getting Started
-In order to deploy on localhost, you will need to first clone the app and install the required npm packaged dependencies.  
+In order to deploy on localhost, you will need to first clone the app and install the required npm package dependencies.  
 
 **Clone the repo:**  
 ```
@@ -58,14 +58,16 @@ That's all folks!
 ## Test API locally using Postman
 If you'd like to test the various endpoints of the REST API used in the Express server, you can reference the documentation published [here](https://documenter.getpostman.com/view/12210427/TVKA5KFJ). To download and install Postman, visit their website [here](https://www.postman.com).
 
-To summarize, it supports the following endpoints:
+To summarize, it supports the following endpoints:  
+  
 **Authentication**
 |REQUEST TYPE|ROUTE|DESCRIPTION|  
 |---|---|---|  
 |POST|api/users/register|Register new user|  
 |POST|api/users/login|Log user in|  
 
-**Decks (requires Bearer Token in Authorization header to perform below actions on documents associated with that user)**  
+**Decks**  
+_(requires Bearer Token in Authorization header to perform below actions on documents associated with that user)_  
 |REQUEST TYPE|ROUTE|DESCRIPTION|  
 |---|---|---|  
 |GET|api/decks|Get all decks for a given user based on auth token|  
@@ -89,6 +91,7 @@ _Instructions coming soon_
 * MongoDB
 * Mongoose
 * Materialize CSS & Material-UI
+* React-Markdown
 * Axios
 * PassportJS
 * jsonwebtoken
