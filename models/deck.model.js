@@ -10,8 +10,6 @@ const deckSchema = new Schema({
     cards: [{
         prompt: { type: String, required: false, default: '' },
         answer: { type: String, required: false, default: '' }
-        // ,
-        // isLearned: { type: Boolean, required: false, default: false }
     }],
     private: { type: Boolean, required: true },
     viewCount: { type: Number, required: false, default: 0 }, // num of clicks into deck
