@@ -91,10 +91,12 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 // @desc create new deck (blank by default) and return it
 // @access private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.user)
     const newDeck = new Deck({
         title: req.body.title,
         description: req.body.description,
         authorId: req.user._id,
+        authorUsername: req.user.username,
         cards: req.body.cards ? req.body.cards : [],
         private: req.body.private ? req.body.private : true
     });
