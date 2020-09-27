@@ -67,15 +67,13 @@ export const cloneDeck = (deck) => dispatch => {
     dispatch(setDeckLoading());
     axios  
         .post('/api/decks', { 
-            title: deck.title,
-            description: '[cloned] ' + deck.description,
+            title: '[copy] ' + deck.title,
+            description: deck.description,
             cards: deck.cards
         })
         .then(res => {
             if (res.status === 201) {
                 const { clonedDeck } = res.data;
-                console.log('received the clone')
-                console.log(res.data)
                 dispatch({
                     type: SET_SELECTED_DECK,
                     payload: clonedDeck

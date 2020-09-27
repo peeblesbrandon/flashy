@@ -65,7 +65,7 @@ class ExploreViewer extends Component {
                                         }
                                         {publicDecks.data.length > 0 &&
                                             publicDecks.data.filter(deck => { return deck.authorId !== auth.user._id }).map(deck =>
-                                                <Deck key={deck._id} id={deck._id} title={deck.title} />
+                                                <Deck key={deck._id} id={deck._id} title={deck.title} cloneButton={true} />
                                             )
                                         }
                                     </div>

@@ -23,7 +23,10 @@ class Deck extends React.Component {
                     <h5 className="left-align float-text truncate">{this.props.title}</h5>
                     <br/>
                     <div className="right-align">
-                        <i className="material-icons md-36 grey darken-2 white-text z-depth-2" style={{ borderRadius: "50%", margin: '0' }} onClick={this.handleStartClick}>play_arrow</i>
+                        {this.props.cloneButton &&
+                            <i className="material-icons md-24 grey darken-1 white-text z-depth-2" style={{ borderRadius: "50%", marginRight: '1rem', padding: '10px' }} onClick={this.handleStartClick}>content_copy</i>
+                        }
+                        <i className="material-icons md-24 grey darken-1 white-text z-depth-2" style={{ borderRadius: "50%", margin: '0', padding: '10px' }} onClick={this.handleStartClick}>play_arrow</i>
                     </div>
                 </div>
             </div>

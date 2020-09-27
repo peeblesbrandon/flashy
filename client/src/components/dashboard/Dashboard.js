@@ -108,12 +108,12 @@ class Dashboard extends Component {
                                     }
                                     {decks.data.length > 0 && this.state.search_bar === '' &&
                                         decks.data.map((deck) =>
-                                            <Deck key={deck._id} id={deck._id} title={deck.title} />
+                                            <Deck key={deck._id} id={deck._id} title={deck.title} cloneButton={false} />
                                         )
                                     }
                                     {decks.data.length > 0 && this.state.search_bar !== '' && decks.filtered.length > 0 &&
                                         decks.filtered.map((deck) =>
-                                            <Deck key={deck._id} id={deck._id} title={deck.title} />
+                                            <Deck key={deck._id} id={deck._id} title={deck.title} cloneButton={false} />
                                         )
                                     }
                                 </div>
