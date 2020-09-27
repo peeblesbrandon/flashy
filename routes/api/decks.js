@@ -172,7 +172,7 @@ router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res
 
 // @route POST api/decks/:id/cards
 // @desc push new card(s) to a deck's cards array
-// @expects array of card objects { prompt, answer, isLearned }
+// @expects array of card objects { prompt, answer }
 // @access private
 router.post('/:id/cards', passport.authenticate('jwt', { session: false }), (req, res) => {
     if (!req.body.cards) {
@@ -199,8 +199,7 @@ router.patch('/:id/cards/:cardId', passport.authenticate('jwt', { session: false
         {$set:
             {
                 'cards.$.prompt': req.body.prompt,
-                'cards.$.answer': req.body.answer,
-                'cards.$.isLearned': req.body.isLearned
+                'cards.$.answer': req.body.answer
             }
         }, 
         (err, result) => {
