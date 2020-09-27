@@ -20,6 +20,7 @@ import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import DeckViewer from './components/dashboard/DeckViewer';
 import StudyViewer from './components/dashboard/StudyViewer';
+import ExploreViewer from './components/dashboard/ExploreViewer';
 
 // check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -61,6 +62,7 @@ class App extends Component {
             {/* private routes */}
             <Switch>
               <PrivateRoute exact path='/dashboard' component={ Dashboard } />
+              <PrivateRoute exact path='/explore' component={ ExploreViewer } />
               <PrivateRoute exact path='/view/:id' component={ DeckViewer } />
               <PrivateRoute exact path='/study/:id' component={ StudyViewer } />
             </Switch>

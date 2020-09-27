@@ -9,8 +9,11 @@ export const GET_DECKS = 'GET_DECKS';
 export const DECKS_LOADING = 'DECKS_LOADING';
 export const CREATE_DECK_START = 'CREATE_DECK_START';
 export const CREATE_DECK_SUCCESS = 'CREATE_DECK_SUCCESS';
+export const FILTER_DECKS = 'FILTER_DECKS';
+// explore decks
+export const GET_PUBLIC_DECKS = 'GET_PUBLIC_DECKS';
+export const PUBLIC_DECKS_LOADING = 'PUBLIC_DECKS_LOADING';
 export const SEARCH_DECKS = 'SEARCH_DECKS';
-// export const CREATE_DECK_FAILURE = 'CREATE_DECK_FAILURE';
 // selectedDeck
 export const GET_DECK_BY_ID = 'GET_DECK_BY_ID';
 export const DECK_LOADING = 'DECK_LOADING';

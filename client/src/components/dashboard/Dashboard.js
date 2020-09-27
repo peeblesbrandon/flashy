@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { logoutUser } from '../../actions/authActions';
-import { getDecks, searchDecks } from '../../actions/deckActions';
+import { getDecks, filterDecks } from '../../actions/deckActions';
 import Navbar from '../layout/Navbar';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import axios from 'axios';
@@ -17,10 +17,6 @@ class Dashboard extends Component {
     constructor(props) {
         super();
         this.state = {
-            // decks: this.props.decks.data,
-            // loading: this.props.decks.loading,
-            // newDeckId: undefined,
-            // isCreatingDeck: false,
             createDeckDialogOpen: false,
             createDeckDialogError: false,
             createDeckDialogErrMsg: '',
@@ -42,7 +38,7 @@ class Dashboard extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
         if (e.target.id === "search_bar") {
-            this.props.searchDecks(e.target.value);
+            this.props.filterDecks(e.target.value);
         }
     };
 
@@ -149,7 +145,7 @@ Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
     getDecks: PropTypes.func.isRequired,
     decks: PropTypes.object.isRequired,
-    searchDecks: PropTypes.func.isRequired,
+    filterDecks: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -159,5 +155,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getDecks, searchDecks }
+    { getDecks, filterDecks }
 )(Dashboard);

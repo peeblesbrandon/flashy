@@ -13,19 +13,77 @@ const Deck = require('../../models/deck.model');
 const e = require('express');
 
 // @route GET api/decks/
-// @desc return array of decks associated with user based on auth header
+// @desc return array of publicly viewable decks
 // @access private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Deck.find({ private: false })
+        .then(decks => {
+            if (decks) {
+                return res.status(200).json({ data: decks })
+            } else {
+                return res.status(204).json({ data: [] })
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({ errors: 'error querying database', msg: err });
+        });
+});
+
+// @route GET api/decks/search/:q
+// @desc search for and return array of public decks matching the query string
+// @access private
+router.get('/search/:q', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.params);
+    Deck.find({ private: false, 
+            $text: { 
+                $search: req.params.q
+            } 
+        })
+        .then(decks => {
+            console.log(decks)
+            if (decks && decks.length > 0) {
+                return res.status(200).json({ data: decks })
+            } else {
+                // if no results, perform partial substring search on title 
+                Deck.find({
+                    private: false,
+                    title: {
+                        $regex: req.params.q, $options: 'i'
+                    }
+                })
+                .then(decks => {
+                    if (decks && decks.length > 0) {
+                        return res.status(200).json({ data: decks })
+                    } else {
+                        return res.status(204).json({ data: [] })
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    return res.status(500).json({ errors: 'error querying database', msg: err });
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({ errors: 'error querying database', msg: err });
+        });
+});
+
+// @route GET api/decks/me
+// @desc return array of decks associated with user based on auth header
+// @access private
+router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
     Deck.find({ authorId: req.user._id })
         .then(decks => {
             if (decks) {
                 return res.status(200).json({ data: decks })
             } else {
-                return res.status(204).json({ data: decks })
+                return res.status(204).json({ data: [] })
             }
         })
         .catch(err => {
-            return res.status(500).json({ errors: 'error querying database' });
+            return res.status(500).json({ errors: 'error querying database', msg: err });
         });
 });
 
@@ -48,12 +106,18 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 });
 
 // @route GET api/decks/:id
-// @desc return deck by id 
+// @desc return deck by id (if user has proper auth or deck set to public) 
 // @access private
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Deck.findOne({ authorId: req.user._id, _id: req.params.id })
+    Deck.findOne({ _id: req.params.id })
         .then(deck => {
-            return res.status(200).json(deck);
+            if (deck.private === false) {
+                res.status(200).json(deck);
+            } else if (deck.authorId === req.params.id) {
+                res.status(200).json(deck);
+            } else if (deck.authorId !== req.params.id && deck.private) {
+                res.status(403).json({ errors: "access denied" })
+            }
         })
         .catch(err => {
             return res.status(404).json({ errors: { deck: 'not found' } });
