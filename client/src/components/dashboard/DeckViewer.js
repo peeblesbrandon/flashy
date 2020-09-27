@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDecks } from '../../actions/deckActions';
-import { getDeckById, patchDeckById, deleteDeckById } from '../../actions/selectedDeckActions';
+import { getDeckById, patchDeckById, deleteDeckById, cloneDeck } from '../../actions/selectedDeckActions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
@@ -29,11 +29,16 @@ class DeckViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.selectedDeck.data._id,
-            title: this.props.selectedDeck.data.title,
-            description: this.props.selectedDeck.data.description,
-            private: this.props.selectedDeck.data.private,
-            cards: this.props.selectedDeck.data.cards,
+            // id: this.props.selectedDeck.data._id,
+            // title: this.props.selectedDeck.data.title,
+            // description: this.props.selectedDeck.data.description,
+            // private: this.props.selectedDeck.data.private,
+            // cards: this.props.selectedDeck.data.cards,
+            id: '',
+            title: '',
+            description: '',
+            private: true,
+            cards: [],
             editMode: false,
             deleteCardDialogOpen: false,
             indexToDelete: undefined
@@ -60,13 +65,16 @@ class DeckViewer extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.selectedDeck) !== JSON.stringify(this.props.selectedDeck)) {
-            this.setState({
-                id: nextProps.selectedDeck.data._id,
-                title: nextProps.selectedDeck.data.title,
-                description: nextProps.selectedDeck.data.description,
-                private: nextProps.selectedDeck.data.private,
-                cards: nextProps.selectedDeck.data.cards
-            });
+            if (nextProps.selectedDeck.data !== undefined) {
+                console.log(nextProps)
+                this.setState({
+                    id: nextProps.selectedDeck.data.hasOwnProperty('_id') ? nextProps.selectedDeck.data._id : '',
+                    title: nextProps.selectedDeck.data.hasOwnProperty('title') ? nextProps.selectedDeck.data.title : '',
+                    description: nextProps.selectedDeck.data.hasOwnProperty('description') ? nextProps.selectedDeck.data.description : '',
+                    private: nextProps.selectedDeck.data.hasOwnProperty('private') ? nextProps.selectedDeck.data.private : '',
+                    cards: nextProps.selectedDeck.data.hasOwnProperty('cards') ? nextProps.selectedDeck.data.cards : '',
+                });
+            }
         }
     };
 
@@ -98,8 +106,7 @@ class DeckViewer extends Component {
         console.log('card add');
         const newCard = {
             prompt: '',
-            answer: '',
-            isLearned: false
+            answer: ''
         };
         let cards = [...this.state.cards, newCard];
         this.setState({ cards });
@@ -128,6 +135,12 @@ class DeckViewer extends Component {
 
     handleDeckDelete = () => {
         this.props.deleteDeckById(this.props.selectedDeck.data._id);
+        this.props.getDecks();
+        this.props.history.push('/dashboard');
+    }
+    
+    handleCloneClick = () => {
+        this.props.cloneDeck(this.props.selectedDeck.data);
         this.props.getDecks();
         this.props.history.push('/dashboard');
     }
@@ -171,7 +184,7 @@ class DeckViewer extends Component {
                 {(selectedDeck.loading === undefined || selectedDeck.loading === true) &&
                     <LoadingSpinFullScreen />
                 }
-                {selectedDeck.loading === false && selectedDeck.data !== {} &&
+                {selectedDeck.loading === false && selectedDeck.data != undefined && selectedDeck.data.hasOwnProperty('cards') &&
                     <div style={{ height: "100vh" }} className="container">
                         {!this.state.editMode &&
                             <div>
@@ -219,9 +232,11 @@ class DeckViewer extends Component {
                                         <i className="large material-icons">expand_less</i>
                                     </a>
                                     <ul>
-                                        <li><a className="btn-floating yellow darken-3"><i className="material-icons" onClick={this.toggleEditMode}>mode_edit</i></a></li>
-                                        {/* <li><a className="btn-floating yellow darken-3"><i className="material-icons">add</i></a></li> */}
-                                        <li><a className="btn-floating green darken-2" disabled={selectedDeck.data.cards.length <= 0 ? true : false}><i className="material-icons" onClick={this.handleStartClick}>play_arrow</i></a></li>
+                                        {selectedDeck.data.authorId === auth.user._id
+                                            ? <li><a className="btn-floating yellow darken-3"><i className="material-icons" onClick={this.toggleEditMode}>mode_edit</i></a></li>
+                                            : <li><a className="btn-floating blue"><i className="material-icons" onClick={this.handleCloneClick}>content_copy</i></a></li>
+                                        }
+                                        <li><a className="btn-floating green darken-2" disabled={(selectedDeck.data.cards.length <= 0) ? true : false}><i className="material-icons" onClick={this.handleStartClick}>play_arrow</i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -339,7 +354,8 @@ DeckViewer.propTypes = {
     getDeckById: PropTypes.func.isRequired,
     patchDeckById: PropTypes.func.isRequired,
     deleteDeckById: PropTypes.func.isRequired,
-    getDecks: PropTypes.func.isRequired
+    getDecks: PropTypes.func.isRequired,
+    cloneDeck: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -349,5 +365,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getDeckById, patchDeckById, deleteDeckById, getDecks }
+    { getDeckById, patchDeckById, deleteDeckById, getDecks, cloneDeck }
 )(withRouter(DeckViewer));

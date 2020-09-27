@@ -98,7 +98,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         cards: req.body.cards ? req.body.cards : [],
         private: req.body.private ? req.body.private : true
     });
-
     newDeck
         .save()
         .then(deck => res.status(201).json(deck))
@@ -110,12 +109,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 // @access private
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     Deck.findOne({ _id: req.params.id })
-        .then(deck => {
+    .then(deck => {
             if (deck.private === false) {
                 res.status(200).json(deck);
-            } else if (deck.authorId === req.params.id) {
+            } else if (deck.authorId.toString() == req.user._id.toString()) {
                 res.status(200).json(deck);
-            } else if (deck.authorId !== req.params.id && deck.private) {
+            } else if (deck.authorId.toString() != req.user._id.toString() && deck.private) {
                 res.status(403).json({ errors: "access denied" })
             }
         })

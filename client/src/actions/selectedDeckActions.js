@@ -63,6 +63,36 @@ export const deleteDeckById = (id) => dispatch => {
         })
 }
 
+export const cloneDeck = (deck) => dispatch => {
+    dispatch(setDeckLoading());
+    axios  
+        .post('/api/decks', { 
+            title: deck.title,
+            description: '[cloned] ' + deck.description,
+            cards: deck.cards
+        })
+        .then(res => {
+            if (res.status === 201) {
+                const { clonedDeck } = res.data;
+                console.log('received the clone')
+                console.log(res.data)
+                dispatch({
+                    type: SET_SELECTED_DECK,
+                    payload: clonedDeck
+                })
+            } else {
+                res.status(500).json({errors: 'failed to clone deck'})
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response
+            });
+        });
+}
+
 export const setDeckLoading = () => {
     return {
         type: DECK_LOADING
