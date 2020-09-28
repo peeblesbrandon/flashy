@@ -28,7 +28,7 @@ class Deck extends React.Component {
         return (
             // <div className="card small hoverable rounded grey valign-wrapper lighten-3 z-depth-2 col grid-gap">
             <div className="col s12 m6 l4" >
-                <div className="paper card-panel hoverable rounded grey lighten-3 col s12 row" style={{ padding: "2rem 1rem" }} onClick={this.handleDeckClick}>
+                <div className="paper card-panel rounded grey lighten-3 col s12 row" style={{ padding: "2rem 1rem" }} onClick={this.handleDeckClick}>
                     {this.props.cloneButton && this.props.deck.authorUsername && 
                         <div className="left left-align col s12" style={{ marginBottom: '10px'}}>
                             <em className="grey-text"><strong>Created by: </strong>{this.props.deck.authorUsername}</em>
