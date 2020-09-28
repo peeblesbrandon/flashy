@@ -209,13 +209,13 @@ class DeckViewer extends Component {
                                         }
                                         {selectedDeck.data.cards !== undefined && selectedDeck.data.cards.length > 0 &&
                                             selectedDeck.data.cards.map((card, i) =>
-                                                <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275 }}>
-                                                    <CardContent style={{overflow: 'scroll'}}>
-                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line', paddingLeft: '1rem' }} color="textPrimary" gutterBottom>
+                                                <Card key={i} style={{ backgroundColor: '#eee', margin: '1rem', minWidth: 275, padding: '1rem' }}>
+                                                    <CardContent style={{ overflow: 'auto', backgroundColor: '#eee'}}>
+                                                        <Typography variant="" style={{ whiteSpace: 'pre-line' }} color="textPrimary" >
                                                             <ReactMarkdown className="markdown left-align" source={`${card.prompt}`} />
                                                         </Typography>
                                                         <hr style={{ border: '1px solid #ccc', borderRadius: '1px' }} />
-                                                        <Typography variant="body1" style={{ whiteSpace: 'pre-line', paddingLeft: '1rem' }} color="textSecondary" gutterBottom>
+                                                        <Typography variant="" style={{ whiteSpace: 'pre-line' }} color="textSecondary" >
                                                             <ReactMarkdown className="markdown left-align" source={`${card.answer}`} />
                                                         </Typography>
                                                     </CardContent>
