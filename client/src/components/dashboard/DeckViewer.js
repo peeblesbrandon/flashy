@@ -103,7 +103,6 @@ class DeckViewer extends Component {
     }
 
     onCardAddClick = () => {
-        console.log('card add');
         const newCard = {
             prompt: '',
             answer: ''
