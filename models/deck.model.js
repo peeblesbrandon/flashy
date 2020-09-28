@@ -7,6 +7,7 @@ const deckSchema = new Schema({
     title: { type: String, required: true }, 
     description: { type: String, required: false },
     authorId: { type: ObjectId, required: true },
+    authorUsername: { type: String, required: true },
     cards: [{
         prompt: { type: String, required: false, default: '' },
         answer: { type: String, required: false, default: '' }
