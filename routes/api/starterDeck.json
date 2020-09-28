@@ -1,7 +1,4 @@
 {
-  "_id": { "$oid": "5f6eadc34ec6017a01ef2feb" },
-  "viewCount": { "$numberInt": "0" },
-  "saveCount": { "$numberInt": "0" },
   "title": "Flashy 101 🔥",
   "description": "Some tips and tricks to help you get started!",
   "cards": [
@@ -9,19 +6,19 @@
       "prompt": "Welcome to Flashy! 🎉",
       "answer": "The best way to study and share flashcards!",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724c7" }
+      "_id": "5f63ae34ab6a5b00178724c7"
     },
     {
       "prompt": "To edit a deck, tap the red arrow button in the bottom right corner, and then click the yellow 'edit' icon.",
       "answer": "Nice! 👏🏼 Now you can add, remove, and edit cards. ",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724c8" }
+      "_id": "5f63ae34ab6a5b00178724c8"
     },
     {
       "prompt": "But wait, there's more! 😮",
       "answer": "You can also edit the title and description from here. You can even toggle your deck to public, so others can learn from your flashcards too! 🌎",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724c9" }
+      "_id": "5f63ae34ab6a5b00178724c9"
     },
     {
       "prompt": "Want to check out what others have created? Visit the **Explore** page",
@@ -31,24 +28,20 @@
       "prompt": "Best of all: *flashy* suports _Markdown_",
       "answer": "### This means that:  \n* You can add bulleted lists  \n* Like this!\n  \n```print('Or add <code /> blocks, like this!')```\n  \nAnd more!   \n\nYou can even add photos!\n  \n![image of doge](https://media.giphy.com/media/HCTfYH2Xk5yw/giphy.gif)",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724c9" }
+      "_id": "5f63ae34ab6a5b00178724c9"
     },
     {
       "prompt": "Want to save your changes?",
       "answer": "Just click the blue save button in the bottom right corner.",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724ca" }
+      "_id": "5f63ae34ab6a5b00178724ca"
     },
     {
       "prompt": "Ready to start studying? ",
       "answer": "Just click the red arrow button again, and then click the green 'start' button. ▶️",
       "isLearned": false,
-      "_id": { "$oid": "5f63ae34ab6a5b00178724cb" }
+      "_id": "5f63ae34ab6a5b00178724cb"
     }
   ],
-  "private": true,
-  "authorId": { "$oid": "5f6eadc34ec6017a01ef2fea" },
-  "createdAt": { "$date": { "$numberLong": "1601088963333" } },
-  "updatedAt": { "$date": { "$numberLong": "1601088963333" } },
-  "__v": { "$numberInt": "0" }
+  "private": true
 }
