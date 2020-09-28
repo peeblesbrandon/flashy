@@ -1,37 +1,23 @@
-.maxLines {
-    display: block;
-    /* or inline-block */
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    overflow: hidden;
-    max-height: 75vh;
-    line-height: 1.25em;
+.input-icons i {
+  position: absolute;
 }
 
-.vertical-align-middle {
-    vertical-align: 'middle';
-    display: 'inline-flex'
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.padding-bottom-3 {
-    padding-bottom: 3px;
+.icon {
+  padding: 10px;
+  min-width: 40px;
 }
 
-.no-padding-override {
-    padding: 0px !important;
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
 }
 
-.mui_card {
-    min-width: 275;
-    background: "#eee";
-    margin: "1rem";
-}
-
-.mui_title {
-    font-size: 14;
-}
-
-.markdown li {
-    list-style: disc !important;
-    list-style-type: disc !important;
+.no-padding {
+  padding: 0 !important
 }
