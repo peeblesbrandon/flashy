@@ -79,9 +79,6 @@ _(requires Bearer Token in Authorization header to perform below actions on docu
 |DEL|api/decks/:id/cards/:cardId|Delete specific card by card and deck ids|  
 
 
-## Deploy to Heroku  
-_Instructions coming soon_
-
 ## Built with
 * ReactJS
 * Redux
