@@ -149,6 +149,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 router.patch('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     Deck.findOne({ authorId: req.user._id, _id: req.params.id })
         .then(deck => {
+            console.log(req.body)
             if (!deck) {
                 return res.status(404).json({ success: false, errors: { deck: 'not found' } });
             } else {
