@@ -146,8 +146,8 @@ class StudyViewer extends Component {
                             <div>
                                 <div className="row">
                                     <div className="col s10 center push-s1">
-                                        <div className="flip-card" onClick={this.handleFlipClick} style={{ margin: '3rem 1rem' }}>
-                                            <div className={`flip-card-inner flow-text ${this.state.flipped ? 'is-flipped' : ''}`}>
+                                        <div className="flip-card" onClick={this.handleFlipClick} style={{ margin: '3rem 1rem' }} style={{ overflow: 'auto' }}>
+                                            <div className={`flip-card-inner flow-text ${this.state.flipped ? 'is-flipped' : ''}`} style={{ overflow: 'auto' }}>
                                                 <div className="flip-card-front rounded z-depth-5" style={{ padding: "1 rem" }}>
                                                     <ReactMarkdown className="markdown left-align" source={`${studySession.cards[currIndex].prompt}`} style={{ marginLeft: "1 rem", overflow: 'auto' }} />
                                                 </div>
